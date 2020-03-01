@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 20:11:04 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 20:18:54 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				get_next_room(t_graph *world, char **line, int *step)
 
 	flag = 0;
 	while (**line == '#')
-	{	
+	{
 		if (ft_strequ(line, "##start") == 1)
 			flag += 1;
 		else if (ft_strequ(line, "##end") == 1)
@@ -132,12 +132,12 @@ static int		is_room(char *line, char **room_name, int *x, int *y)
 	if (is_number(line) != 1 || ft_atoi_status(&line, x) != 0)
 	{
 		free(*room_name);
-		return(0);
+		return (0);
 	}
 	if (is_number(line) != 1 || ft_atoi_status(&line, x) != 0)
 	{
 		free(*room_name);
-		return(0);
+		return (0);
 	}
 	return (1);
 }
