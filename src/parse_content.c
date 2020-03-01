@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 20:43:45 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 21:09:04 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int				get_ants(t_graph *world, char *line, int *step)
 		return (0);
 	while (ft_isspace((int)(*line)) != 0)
 		line++;
-	if (*line != '\0')
-		return (0);
+//	if (*line != '\0')
+//		return (0);
 	*step = 1;
 	return (1);
 }

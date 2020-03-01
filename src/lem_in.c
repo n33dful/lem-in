@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 20:49:39 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 21:05:26 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,17 @@ int			parse_input(t_graph *world)
 
 int			main(int argc, char **argv)
 {
-	t_graph		*world;
+	t_graph		world;
 
-	world = NULL;
 	if (argc > 1)
 	{
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	if (parse_input(world) == -1)
+	if (parse_input(&world) == -1)
 	{
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	ft_world_print(world);
+	ft_world_print(&world);
 }

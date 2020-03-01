@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
+#    By: sroland <sroland@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/12 13:46:51 by cdarci            #+#    #+#              #
-#    Updated: 2020/01/06 18:37:53 by cdarci           ###   ########.fr        #
+#    Updated: 2020/03/01 20:59:50 by sroland          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 C=gcc
 NAME=libft.a
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -g
 DIR_S=src
 DIR_O=temp
 HEADER=incl
