@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 17:00:25 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 17:27:10 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct 			s_graph
 int			parse_input(t_graph *world);
 int			get_ants(t_graph *world, char *line);
 int			get_next_room(t_graph *world, char *line);
+int			add_room(t_graph *world, int flag, char *line);
 int			get_edges(t_graph *world, char *line);
 t_room		*find_room(t_graph *world, char *name);
 

@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 17:23:36 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 17:27:17 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int			get_next_room(t_graph *world, char *line)
 		flag = 100;
 	else if (*line == '#')
 		flag = -1;
-	if (add_room(t_graph *world, int flag, char *line) == )
+	if (add_room(t_graph *world, int flag, char *line) != 1)
+		
 
 
 

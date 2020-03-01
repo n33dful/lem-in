@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 16:57:45 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 17:30:36 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int			parse_input(t_graph *world)
 		else if (step == 2)
 			if (get_edges(world, line) != 1)
 				return (-1);
+		free(line);
 	}
 	return (1);
-	free(line);
 }
 
 int			main(int argc, char **argv)
