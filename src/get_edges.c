@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_edges.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/01 19:33:01 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/01 20:47:12 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int		ft_search_room(void *cont, t_list *lst)
 
 	name = cont;
 	room = lst->content;
-	if (ft_strequ(name, room))
+	if (ft_strequ(name, room->name))
 		return (1);
 	return (0);
 }
@@ -123,11 +123,12 @@ static int	ft_add_edge(char **room_names, t_list *rooms)
 		return (0);
 	room = room_one->content;
 	ft_lstadd_back(&(room->edges), new);
+	return (1);
 }
 
-int			get_edges(t_graph *world, const char *line)
+int			get_edges(t_graph *world, char *line)
 {
-	t_room	*rooms;
+	t_list	*rooms;
 	char	**room_names;
 
 	rooms = world->rooms;
@@ -139,6 +140,6 @@ int			get_edges(t_graph *world, const char *line)
 		return (ft_arrdel(room_names));
 	if (!ft_add_edge(room_names, rooms))
 		return (ft_arrdel(room_names));
-	ft_arrdel(rooms);
+	ft_arrdel(room_names);
 	return (1);
 }

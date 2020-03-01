@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
+#    By: sroland <sroland@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/01 16:14:55 by cdarci            #+#    #+#              #
-#    Updated: 2020/03/01 20:20:02 by cdarci           ###   ########.fr        #
+#    Updated: 2020/03/01 20:54:22 by sroland          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ FILES=lem_in.c\
 parse_content.c\
 get_number.c\
 get_edges.c\
-ft_world_print.c\
-basic_operations.c
+ft_world_print.c
 NAME=lem-in
 DIR_S=src
 DIR_O=tmp
@@ -28,16 +27,19 @@ OBJECTS=$(addprefix $(DIR_O)/, $(FILES:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(C) $(FLAGS) $(OBJECTS) -o $(NAME)
+	make -C library
+	$(C) $(FLAGS) $(OBJECTS) -Llibrary -lft -o $(NAME)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	mkdir -p $(DIR_O)
 	$(C) $(FLAGS) -I$(HEADER) -c $< -o $@
 
 clean:
+	make clean -C library
 	rm -rf $(DIR_O)
 
-fclen:
+fclean: clean
+	make fclean -C library
 	rm -f $(NAME)
 
 re: fclean all

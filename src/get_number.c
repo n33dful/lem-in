@@ -6,13 +6,13 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 17:29:43 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 20:19:41 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 20:47:35 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int		is_number(char *str)
+int				is_number(char *str)
 {
 	int			flag;
 
@@ -43,7 +43,7 @@ int				ft_atoi_status(char **str, int *result)
 
 	sign = 1;
 	res = 0;
-	while (ft_isspace1((int)**str) != 0)
+	while (ft_isspace((int)**str) != 0)
 		(*str)++;
 	if (**str == '+')
 		(*str)++;
@@ -60,5 +60,5 @@ int				ft_atoi_status(char **str, int *result)
 			return (-1);
 	}
 	*result = (int)res;
-	return ((ft_isspace1(**str) || **str == '\0') ? 0 : -1);
+	return ((ft_isspace(**str) || **str == '\0') ? 0 : -1);
 }

@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 20:18:15 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 20:49:39 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ int			main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (0);
 	}
+	ft_world_print(world);
 }
