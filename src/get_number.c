@@ -6,15 +6,15 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 17:29:43 by sroland           #+#    #+#             */
-/*   Updated: 2020/02/29 17:38:49 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/01 20:19:41 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int      is_number(char *str)
+static int		is_number(char *str)
 {
-	int         flag;
+	int			flag;
 
 	flag = 0;
 	while (*str != '\0')
@@ -36,10 +36,10 @@ static int      is_number(char *str)
 	return (flag == 2 ? 1 : 0);
 }
 
-int             ft_atoi_status(char **str, int *result)
+int				ft_atoi_status(char **str, int *result)
 {
-	int                 sign;
-	long long int       res;
+	int					sign;
+	long long int		res;
 
 	sign = 1;
 	res = 0;
