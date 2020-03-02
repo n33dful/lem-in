@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 17:29:43 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 20:47:35 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:01:14 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ int				ft_atoi_status(char **str, int *result)
 			return (-1);
 	}
 	*result = (int)res;
-	return ((ft_isspace(**str) || **str == '\0') ? 0 : -1);
+	return ((ft_isspace(**str) || **str == '\0') ? 1 : 0);
 }
