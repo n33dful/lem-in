@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 21:09:04 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:41:24 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int				get_ants(t_graph *world, char *line, int *step)
 		return (0);
 	while (ft_isspace((int)(*line)) != 0)
 		line++;
-//	if (*line != '\0')
-//		return (0);
+	if (*line != '\0')
+		return (0);
 	*step = 1;
 	return (1);
 }
@@ -34,7 +34,7 @@ int				get_next_room(t_graph *world, char **line, int *step)
 	flag = 0;
 	while (**line == '#')
 	{
-		if (ft_strequ(*line, "##start") == 1)
+		if (ft_strequ(*line, "##start") == 1)\
 			flag += 1;
 		else if (ft_strequ(*line, "##end") == 1)
 			flag += 100;
@@ -80,12 +80,12 @@ static int		is_room(char *line, char **room_name, int *x, int *y)
 	*room_name = ft_strncpy(ft_strnew(i), line, i);
 	i++;
 	line = line + i;
-	if (is_number(line) != 1 || ft_atoi_status(&line, x) != 0)
+	if (is_number(line) != 1 || ft_atoi_status(&line, x) != 1)
 	{
 		free(*room_name);
 		return (0);
 	}
-	if (is_number(line) != 1 || ft_atoi_status(&line, x) != 0)
+	if (is_number(line) != 1 || ft_atoi_status(&line, y) != 1)
 	{
 		free(*room_name);
 		return (0);
@@ -118,6 +118,19 @@ static int		find_room(t_list *rooms, char *name)
 	return (0);
 }
 
+static int		add_start_end(t_graph *world, t_list *new_room, int flag)
+{
+	if (flag == 1 && world->start_room != NULL)
+		return (-1);
+	if (flag == 100 && world->end_room != NULL)
+		return (-1);
+	if (flag == 1)
+		world->start_room = new_room;
+	if (flag == 100)
+		world->end_room = new_room;
+	return (1);
+}
+
 int				add_room(t_graph *world, int flag, char *line)
 {
 	char		*name;
@@ -138,5 +151,5 @@ int				add_room(t_graph *world, int flag, char *line)
 	if (new_room == NULL)
 		return (-1);
 	ft_lstadd_back(&world->rooms, new_room);
-	return (1);
+	return (add_start_end(world, new_room, flag));
 }

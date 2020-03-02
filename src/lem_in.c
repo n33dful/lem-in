@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/01 21:05:26 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:53:10 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ int			parse_input(t_graph *world)
 	step = 0;
 	while (get_next_line(0, &line) == 1)
 	{
-		if (step == 0 && get_ants(world, line, &step) != 1)
-			return (-1);
-		if (step == 1 && get_next_room(world, &line, &step) != 1)
+		if (step == 0)
+		{
+			if (get_ants(world, line, &step) != 1)
+				return (-1);
+		}
+		else if (step == 1 && get_next_room(world, &line, &step) != 1)
 			return (-1);
 		if (step == 2)
 			if (get_edges(world, line) != 1)
@@ -32,10 +35,20 @@ int			parse_input(t_graph *world)
 	return (1);
 }
 
+int			init_world(t_graph *world)
+{
+	world->end_room = NULL;
+	world->start_room = NULL;
+	world->number_of_ants = 0;
+	world->rooms = NULL;
+	return (0);
+}
+
 int			main(int argc, char **argv)
 {
 	t_graph		world;
 
+	init_world(&world);
 	if (argc > 1)
 	{
 		write(2, "Error\n", 6);
