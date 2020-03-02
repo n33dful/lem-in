@@ -6,12 +6,12 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/02 20:05:01 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/02 20:58:56 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef LEM_IN_H
+# define LEM_IN_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -20,7 +20,7 @@
 # include "../library/get_next_line/incl/get_next_line.h"
 # include <limits.h>
 
-typedef struct			room_struct
+typedef struct			s_room_struct
 {
 	char				*name;
 	int					x;
@@ -29,7 +29,7 @@ typedef struct			room_struct
 	int					is_visited;
 }						t_room;
 
-typedef struct			edges_struct
+typedef struct			s_edges_struct
 {
 	t_room				*to;
 	int					weight;
@@ -37,7 +37,7 @@ typedef struct			edges_struct
 	int					residual;
 }						t_edge;
 
-typedef struct 			s_graph
+typedef struct			s_graph
 {
 	int					number_of_ants;
 	t_list				*start_room;
@@ -45,14 +45,14 @@ typedef struct 			s_graph
 	t_list				*rooms;
 }						t_graph;
 
-int				parse_input(t_graph *world);
-int				is_number(char *str);
-int				ft_atoi_status(char **str, int *result);
-int				get_ants(t_graph *world, char *line, int *step);
-int				get_next_room(t_graph *world, char **line, int *step);
-int				add_room(t_graph *world, int flag, char *line);
-int				get_edges(t_graph *world, char *line);
-void			ft_world_print(t_graph *world);
-void			ft_graphdel(t_graph *graph);
+int						parse_input(t_graph *world);
+int						is_number(char *str);
+int						ft_atoi_status(char **str, int *result);
+int						get_ants(t_graph *world, char *line, int *step);
+int						get_next_room(t_graph *world, char **line, int *step);
+int						add_room(t_graph *world, int flag, char *line);
+int						get_edges(t_graph *world, char *line);
+void					ft_world_print(t_graph *world);
+void					ft_graphdel(t_graph *graph);
 
 #endif
