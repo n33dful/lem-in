@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_edges.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/01 20:47:12 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:54:06 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static int  ft_check_format(const char *line)
         return (0);
     if (ft_strchr(line, '-') != ft_strrchr(line, '-'))
         return (0);
-	while (ft_isprint(line[i]))
+	while (ft_isalnum(line[i]))
 		i++;
 	if (line[i] != '-')
 		return (0);
 	else
 		i++;
-	while (ft_isprint(line[i]))
+	while (ft_isalnum(line[i]))
 		i++;
 	if (line[i] != '\0')
 		return (0);
@@ -108,7 +108,7 @@ static int	ft_add_edge(char **room_names, t_list *rooms)
 
 	if (!(room_one = ft_lstfind(rooms, room_names[0], ft_search_room)))
 		return (0);
-	if (!(room_two = ft_lstfind(rooms, room_names[0], ft_search_room)))
+	if (!(room_two = ft_lstfind(rooms, room_names[1], ft_search_room)))
 		return (0);
 	edge.weight = 0;
 	edge.residual = 0;
