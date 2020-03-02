@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/02 19:55:48 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/02 20:06:37 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int			parse_input(t_graph *world)
 		}
 		else if (step == 1 && get_next_room(world, &line, &step) != 1)
 			return (-1);
-		if (step == 2)
-			if (get_edges(world, line) != 1)
+		if (step == 2 &&
+		(!world->start_room || !world->end_room || get_edges(world, line) != 1))
 				return (-1);
 		free(line);
 	}
@@ -97,4 +97,5 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	ft_world_print(&world);
+	return (0);
 }
