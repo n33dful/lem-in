@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/02 19:02:07 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/04 20:06:30 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct			room_struct
 	int					y;
 	t_list				*edges;
 	int					is_visited;
+	t_room				*parent;
 }						t_room;
 
 typedef struct			edges_struct
@@ -53,5 +54,6 @@ int				get_next_room(t_graph *world, char **line, int *step);
 int				add_room(t_graph *world, int flag, char *line);
 int				get_edges(t_graph *world, char *line);
 void			ft_world_print(t_graph *world);
+void			ft_roomdel(void *content, size_t content_size);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
+#    By: sroland <sroland@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/01 16:14:55 by cdarci            #+#    #+#              #
-#    Updated: 2020/03/02 19:16:06 by cdarci           ###   ########.fr        #
+#    Updated: 2020/03/04 19:09:53 by sroland          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ FILES=lem_in.c\
 parse_content.c\
 get_number.c\
 get_edges.c\
-ft_world_print.c
+ft_world_print.c\
+ft_breadth_first_search.c\
+ft_ford_falkerson.c
+
 NAME=lem-in
 DIR_S=src
 DIR_O=tmp
