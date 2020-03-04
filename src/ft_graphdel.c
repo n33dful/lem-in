@@ -6,19 +6,19 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 19:52:58 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/02 19:53:15 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/02 19:58:25 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_edgedel(void *content, size_t content_size)
+static void	ft_edgedel(void *content, size_t content_size)
 {
 	if (content_size > 0)
 		ft_memdel(&content);
 }
 
-void		ft_roomdel(void *content, size_t content_size)
+static void	ft_roomdel(void *content, size_t content_size)
 {
 	t_room	*room;
 
@@ -31,9 +31,9 @@ void		ft_roomdel(void *content, size_t content_size)
 	ft_memdel(&content);
 }
 
-void		ft_graphdel(t_graph **graph)
+void		ft_graphdel(t_graph *graph)
 {
-	ft_lstdel(&(*graph)->rooms, ft_roomdel);
-	free((*graph));
-	(*graph) = NULL;
+	ft_lstdel(&graph->rooms, ft_roomdel);
+	graph->start_room = NULL;
+	graph->end_room = NULL;
 }
