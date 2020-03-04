@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/04 21:34:31 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/04 21:45:06 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,20 @@
 # include "../library/get_next_line/incl/get_next_line.h"
 # include <limits.h>
 
-typedef struct			s_road
-{		
-	t_room				*to;
-	int					len;
-}						t_road;
-
 typedef struct			s_calc
 {		
 	int					turns;
 	t_list				*roads;
 }						t_calc;
 
-typedef struct			s_room_struct
+typedef struct			s_room
 {
 	char				*name;
 	int					x;
 	int					y;
 	t_list				*edges;
 	int					is_visited;
-	t_room				*parent;
+	struct s_room		*parent;
 }						t_room;
 
 typedef struct			s_edges_struct
@@ -58,6 +52,15 @@ typedef struct			s_graph
 	t_list				*rooms;
 }						t_graph;
 
+typedef struct			s_road
+{		
+	t_room				*to;
+	int					len;
+}						t_road;
+
+/*
+** --------------------- Functions For Parsing ---------------------------
+*/
 int						parse_input(t_graph *world);
 int						is_number(char *str);
 int						ft_atoi_status(char **str, int *result);
@@ -68,6 +71,9 @@ int						get_edges(t_graph *world, char *line);
 void					ft_world_print(t_graph *world);
 void					ft_graphdel(t_graph *graph);
 
+/*
+** --------------------- Functions For Route Search ---------------------
+*/
 int						bfs_find_next_path(t_graph *world);
 void					change_flow(int diff, t_room *from, t_room *to);
 int						bfs_travers(t_graph *world);

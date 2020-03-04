@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/02 20:06:37 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/04 22:05:11 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	ft_world_print(&world);
+	ford_falkerson(&world);
 	return (0);
 }
