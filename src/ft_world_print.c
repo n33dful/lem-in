@@ -6,12 +6,11 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:33:55 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/02 19:52:21 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/04 21:13:53 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
 static void	ft_print_edges(t_list *rooms)
 {
@@ -38,18 +37,20 @@ static void	ft_print_rooms(t_graph *world)
 	t_list	*rooms;
 	t_room	*room;
 
-	room = world->start_room->content;
-	printf("%s %d %d\n##start\n", room->name, room->x, room->y);
-	room = world->end_room->content;
-	printf("%s %d %d\n##end\n", room->name, room->x, room->y);
 	rooms = world->rooms;
 	while (rooms)
 	{
-		if (rooms != world->start_room && rooms != world->end_room)
-		{
-			room = rooms->content;
-			printf("%s %d %d\n", room->name, room->x, room->y);
-		}
+		if (rooms == world->start_room)
+			ft_putendl("#start");
+		if (rooms == world->end_room)
+			ft_putendl("#end");
+		room = rooms->content;
+		ft_putstr(room->name);
+		ft_putchar(' ');
+		ft_putnbr(room->x);
+		ft_putchar(' ');
+		ft_putnbr(room->y);
+		ft_putchar('\n');
 		rooms = rooms->next;
 	}
 }
