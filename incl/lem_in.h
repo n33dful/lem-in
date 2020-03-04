@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/04 21:28:52 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:31:04 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_list					*delete_first_room(t_list **queue);
 int						nulify_flow(t_graph *world);
 int						nulify_parents_and_is_visited(t_graph *world);
 int						ford_falkerson(t_graph *world);
+void					ft_roomdel(void *content, size_t content_size);
 
 
 
