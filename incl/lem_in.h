@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/02 20:58:56 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/04 21:28:52 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct			s_room_struct
 	int					y;
 	t_list				*edges;
 	int					is_visited;
+	t_room				*parent;
 }						t_room;
 
 typedef struct			s_edges_struct
@@ -54,5 +55,16 @@ int						add_room(t_graph *world, int flag, char *line);
 int						get_edges(t_graph *world, char *line);
 void					ft_world_print(t_graph *world);
 void					ft_graphdel(t_graph *graph);
+
+int						bfs_find_next_path(t_graph *world);
+void					change_flow(int diff, t_room *from, t_room *to);
+int						bfs_travers(t_graph *world);
+t_room					*room_out(t_room *room);
+t_list					*delete_first_room(t_list **queue);
+int						nulify_flow(t_graph *world);
+int						nulify_parents_and_is_visited(t_graph *world);
+int						ford_falkerson(t_graph *world);
+
+
 
 #endif
