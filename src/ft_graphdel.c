@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 19:52:58 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/02 19:58:25 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/04 21:32:11 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_edgedel(void *content, size_t content_size)
 		ft_memdel(&content);
 }
 
-static void	ft_roomdel(void *content, size_t content_size)
+void		ft_roomdel(void *content, size_t content_size)
 {
 	t_room	*room;
 

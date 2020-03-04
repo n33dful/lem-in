@@ -6,24 +6,11 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 19:08:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/04 21:29:44 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/04 21:33:31 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
-
-typedef struct	s_road
-{
-	t_room		*to;
-	int			len;
-}				t_road;
-
-typedef struct	s_calc
-{
-	int			turns;
-	t_list		*roads;
-}				t_calc;
 
 static void	ft_reset_is_visited(t_list *elem)
 {

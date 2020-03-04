@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/04 21:28:52 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:32:52 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 # include "../library/libft/incl/libft.h"
 # include "../library/get_next_line/incl/get_next_line.h"
 # include <limits.h>
+
+typedef struct			s_road
+{		
+	t_room				*to;
+	int					len;
+}						t_road;
+
+typedef struct			s_calc
+{		
+	int					turns;
+	t_list				*roads;
+}						t_calc;
 
 typedef struct			s_room_struct
 {
@@ -65,6 +77,6 @@ int						nulify_flow(t_graph *world);
 int						nulify_parents_and_is_visited(t_graph *world);
 int						ford_falkerson(t_graph *world);
 
-
+t_list					*ft_find_bandwidth(t_graph *world);
 
 #endif
