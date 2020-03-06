@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/06 14:45:44 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/06 14:49:55 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list				*delete_first_room(t_list **queue)
 	tmp = *queue;
 	*queue = (*queue)->next;
 	tmp->next = NULL;
-	ft_lstdel(&tmp, ft_roomdel);
+	free(tmp);
 	return (*queue);
 }
 
