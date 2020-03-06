@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 19:08:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/04 21:33:31 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/06 20:56:23 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	ft_roadlen(t_room *room, t_room *end_room)
 	return (-1);
 }
 
-
 t_list		*ft_find_bandwidth(t_graph *world)
 {
 	t_room	*start_room;
@@ -59,12 +58,15 @@ t_list		*ft_find_bandwidth(t_graph *world)
 	options = NULL;
 	while (edges)
 	{
-		start_room->is_visited = 1;
 		edge = edges->content;
-		road.to = edge->to;
-		road.len = ft_roadlen(edge->to, world->end_room->content) + 1;
-		ft_lstadd_back(&options, ft_lstnew(&road, sizeof(t_road)));
-		ft_lstiter(world->rooms, ft_reset_is_visited);
+		if (edge->flow == 1)
+		{
+			start_room->is_visited = 1;
+			road.to = edge->to;
+			road.len = ft_roadlen(edge->to, world->end_room->content) + 1;
+			ft_lstiter(world->rooms, ft_reset_is_visited);
+			ft_lstadd_back(&options, ft_lstnew(&road, sizeof(t_road)));
+		}
 		edges = edges->next;
 	}
 	ft_lstiter(world->rooms, ft_reset_is_visited);
