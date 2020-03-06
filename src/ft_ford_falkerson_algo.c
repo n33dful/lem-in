@@ -6,7 +6,7 @@
 /*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:35:11 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/04 22:22:23 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/06 20:55:16 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int			ford_falkerson(t_graph *world)
 	i = 0;
 	nulify_flow(world);
 	nulify_parents_and_is_visited(world);
-	printf("starting iterations\n");
+	printf("\n\nstarting iterations\n");
 	while (bfs_find_next_path(world) == 1)
 	{
 		i++;
-		printf("i = %10d\n", i);
+//		printf("i = %10d\n", i);
 	}
 	return (i);
 }
