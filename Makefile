@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sroland <sroland@student.42.fr>            +#+  +:+       +#+         #
+#    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/01 16:14:55 by cdarci            #+#    #+#              #
-#    Updated: 2020/03/04 21:24:15 by sroland          ###   ########.fr        #
+#    Updated: 2020/03/06 22:09:55 by cdarci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ get_edges.c\
 ft_world_print.c\
 ft_breadth_first_search.c\
 ft_ford_falkerson_algo.c\
-ft_graphdel.c
+ft_graphdel.c\
+ft_find_bandwidth.c
 NAME=lem-in
 DIR_S=src
 DIR_O=tmp
