@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/08 17:14:04 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 20:48:54 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ typedef struct			s_road
 	int					len;
 	int					active_road;
 }						t_road;
+
+typedef struct			s_ant
+{
+	int					index;
+	t_list				*road;
+}						t_ant;
 
 /*
 ** --------------------- Functions For Parsing ---------------------------

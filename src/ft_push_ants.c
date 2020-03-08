@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 19:08:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/08 20:21:42 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 21:04:36 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ static t_list		*ft_lstlast(t_list *lst)
 	return (lst);
 }
 
-typedef struct	s_ant
-{
-	int			index;
-	t_list		*road;
-}				t_ant;
-
 t_list		*ft_antnew(int index, t_list *road)
 {
 	t_list	*elem;
@@ -37,45 +31,6 @@ t_list		*ft_antnew(int index, t_list *road)
 	if (!(elem = ft_lstnew(&ant, sizeof(t_ant))))
 		return (NULL);
 	return (elem);
-}
-
-void		ft_move_ant(t_list *elem)
-{
-	t_ant	*ant;
-	t_list	*ptr;
-
-	if (elem)
-	{
-		ant = elem->content;
-		if (ant->road)
-			ant->road = ant->road->next;
-	}
-}
-
-void		ft_print_ant(t_list *ant_elem)
-{
-	t_room	*room;
-	t_ant	*ant;
-
-	if (ant_elem)
-	{
-		ant = ant_elem->content;
-		if (ant)
-		{
-			if (ant->road)
-			{
-				room = ant->road->content;
-				if (room)
-				{
-					ft_putchar('L');
-					ft_putnbr(ant->index);
-					ft_putstr(" - ");
-					ft_putstr(room->name);
-					ft_putchar(' ');
-				}
-			}
-		}
-	}
 }
 
 static int	ft_sumofprelastroads(t_list *options, int other)
@@ -145,27 +100,6 @@ void		ft_dellong_roads(t_list **options, int number_of_ants)
 	}
 }
 
-static void		ft_pr(t_list *elem)
-{
-	t_room	*room;
-
-	room = elem->content;
-	ft_putendl(room->name);
-}
-
-static void		ft_prnt(t_list *elem)
-{
-	t_road	*road;
-	t_list	*rooms;
-
-	road = elem->content;
-	rooms = road->to;
-	ft_putnbr(road->len);
-	ft_putchar('\n');
-	ft_putendl("road to:");
-	ft_lstiter(rooms, ft_pr);
-}
-
 void		ft_send_new_ants(int *total_ants, int *ant_index, \
 t_list *list_of_roads, t_list **list_of_ants)
 {
@@ -210,6 +144,52 @@ ft_del_the_end_ants(list_of_ants->next);
 	return (NULL);
 }
 
+static void	ft_print_ant(t_list *ant_elem)
+{
+	t_room	*room;
+	t_ant	*ant;
+
+	if (ant_elem)
+	{
+		ant = ant_elem->content;
+		if (ant)
+		{
+			if (!ant->road)
+				return ;
+			room = ant->road->content;
+			if (room)
+			{
+				ft_putchar('L');
+				ft_putnbr(ant->index);
+				ft_putstr(" - ");
+				ft_putstr(room->name);
+				ft_putchar(' ');
+			}
+		}
+	}
+}
+
+static void	ft_move_ant(t_list *elem)
+{
+	t_ant	*ant;
+	t_list	*ptr;
+
+	if (elem)
+	{
+		ant = elem->content;
+		if (ant->road)
+			ant->road = ant->road->next;
+	}
+}
+
+static void	ft_next_turn(t_list **list_of_ants)
+{
+	ft_lstiter(*list_of_ants, ft_print_ant);
+	ft_lstiter(*list_of_ants, ft_move_ant);
+	ft_putchar('\n');
+	*list_of_ants = ft_del_the_end_ants(*list_of_ants);
+}
+
 void		ft_push_ants(t_calc *calc, t_graph *world)
 {
 	int		ants;
@@ -224,16 +204,8 @@ void		ft_push_ants(t_calc *calc, t_graph *world)
 	{
 		ft_dellong_roads(&calc->roads, ants);
 		ft_send_new_ants(&ants, &ant_index, calc->roads, &list_of_ants);
-		ft_lstiter(list_of_ants, ft_print_ant);
-		ft_lstiter(list_of_ants, ft_move_ant);
-		ft_putchar('\n');
-		list_of_ants = ft_del_the_end_ants(list_of_ants);
+		ft_next_turn(&list_of_ants);
 	}
 	while (list_of_ants)
-	{
-		ft_lstiter(list_of_ants, ft_print_ant);
-		ft_lstiter(list_of_ants, ft_move_ant);
-		ft_putchar('\n');
-		list_of_ants = ft_del_the_end_ants(list_of_ants);
-	}
+		ft_next_turn(&list_of_ants);
 }
