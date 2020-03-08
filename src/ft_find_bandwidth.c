@@ -6,19 +6,11 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 19:08:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/06 23:22:05 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 19:15:43 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-static void	ft_reset_is_visited(t_list *elem)
-{
-	t_room	*room;
-
-	room = elem->content;
-	room->is_visited = 0;
-}
 
 static int	ft_roadlen(t_room *room, t_room *end_room)
 {
@@ -35,8 +27,7 @@ static int	ft_roadlen(t_room *room, t_room *end_room)
 		while (edges)
 		{
 			edge = edges->content;
-			room->is_visited = 1;
-			if (edge->flow && !edge->to->is_visited)
+			if (edge->flow == 1)
 				return (len + ft_roadlen(edge->to, end_room) + 1);
 			edges = edges->next;
 		}
@@ -57,6 +48,42 @@ static int	ft_sortroads(t_list *current, t_list *next)
 	return (0);
 }
 
+static t_list	*road_room(t_room *room, t_room *end_room)
+{
+	t_list	*newwwwwwww;
+	t_list	*new_elem;
+	t_list	*edges;
+	t_edge	*edge;
+
+	newwwwwwww = NULL;
+	if (room && end_room)
+	{
+		newwwwwwww = ft_lstnew(NULL, 0);
+		newwwwwwww->content = room;
+		edges = room->edges;
+		while (edges)
+		{
+			edge = edges->content;
+			if (ft_strequ(room->name, end_room->name))
+			{
+				new_elem = ft_lstnew(NULL, 0);
+				new_elem->content = room;
+				ft_lstadd_back(&newwwwwwww, new_elem);
+				break ;
+			}
+			else if (edge->flow == 1)
+			{
+				edges = edge->to->edges;
+				new_elem = ft_lstnew(NULL, 0);
+				new_elem->content = edge->to;
+				ft_lstadd_back(&newwwwwwww, new_elem);
+			}
+			edges = edges->next;
+		}
+	}
+	return (newwwwwwww);
+}
+
 t_list		*ft_find_bandwidth(t_graph *world)
 {
 	t_room	*start_room;
@@ -73,15 +100,13 @@ t_list		*ft_find_bandwidth(t_graph *world)
 		edge = edges->content;
 		if (edge->flow == 1)
 		{
-			start_room->is_visited = 1;
-			road.to = edge->to;
+			road.to = road_room(edge->to, world->end_room->content);
 			road.len = ft_roadlen(edge->to, world->end_room->content) + 1;
-			ft_lstiter(world->rooms, ft_reset_is_visited);
+			road.active_road = 1;
 			ft_lstadd_back(&options, ft_lstnew(&road, sizeof(t_road)));
 		}
 		edges = edges->next;
 	}
-	ft_lstiter(world->rooms, ft_reset_is_visited);
 	ft_lstsort(&options, ft_sortroads);
 	return (options);
 }
@@ -99,10 +124,8 @@ t_list		*ft_lstnew_pointer(t_list *elem)
 {
 	t_list	*lst;
 
-	if (!(lst = (t_list *)malloc(sizeof(t_list))))
-		return (NULL);
-	lst->content = elem->content;
-	lst->content_size = 0;
+	if ((lst = ft_lstnew(NULL, 0)))
+		lst->content = elem->content;
 	return (lst);
 }
 

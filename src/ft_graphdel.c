@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 19:52:58 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/04 21:32:11 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 19:05:58 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void		ft_roomdel(void *content, size_t content_size)
 		room = content;
 		ft_strdel(&room->name);
 		ft_lstdel(&room->edges, ft_edgedel);
+		ft_memdel(&content);
 	}
-	ft_memdel(&content);
 }
 
 void		ft_graphdel(t_graph *graph)

@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 19:28:31 by cdarci            #+#    #+#             */
-/*   Updated: 2019/09/12 15:29:11 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 20:11:07 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
 {
-	if (alst && del)
+	t_list	*ptr;
+
+	if (alst && *alst && del)
 	{
 		del((*alst)->content, (*alst)->content_size);
-		*alst = NULL;
+		ptr = (*alst)->next;
+		free((*alst));
+		*alst = ptr;
 	}
 }

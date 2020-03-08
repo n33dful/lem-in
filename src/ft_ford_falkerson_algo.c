@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ford_falkerson_algo.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:35:11 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/06 20:55:16 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/08 19:59:38 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ int			nulify_parents_and_is_visited(t_graph *world)
 	return (0);
 }
 
+void		algo_magic(t_graph *world)
+{
+	t_calc	*calc;
+
+	calc = ft_calc(world);
+	printf("ants will pass it for %d turn(s)\n", calc->turns);
+	ft_push_ants(calc, world);
+	//ft_lstdel(&calc->roads, ft_roomdel);
+	free(calc);
+}
+
 int			ford_falkerson(t_graph *world)
 {
 	int		i;
@@ -58,7 +69,7 @@ int			ford_falkerson(t_graph *world)
 	while (bfs_find_next_path(world) == 1)
 	{
 		i++;
-//		printf("i = %10d\n", i);
+		algo_magic(world);
 	}
 	return (i);
 }

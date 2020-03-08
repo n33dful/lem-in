@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/06 22:14:53 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 17:14:04 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ typedef struct			s_graph
 
 typedef struct			s_road
 {		
-	t_room				*to;
+	t_list				*to;
 	int					len;
+	int					active_road;
 }						t_road;
 
 /*
@@ -87,5 +88,7 @@ void					ft_roomdel(void *content, size_t content_size);
 t_list					*ft_find_bandwidth(t_graph *world);
 
 t_calc					*ft_calc(t_graph *world);
+
+void					ft_push_ants(t_calc *calc, t_graph *world);
 
 #endif

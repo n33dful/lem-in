@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:48:21 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/06 23:21:36 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/08 20:19:10 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,6 @@ int			init_world(t_graph *world)
 	return (0);
 }
 
-void		algo_magic(t_graph *world)
-{
-	t_calc	*calc;
-
-	calc = ft_calc(world);
-	printf("ants will pass it for %d turn(s)\n", calc->turns);
-	//ft_lstdel(&calc->roads, ft_roomdel);
-	free(calc);
-}
-
 int			main(int argc, char **argv)
 {
 	t_graph		world;
@@ -72,7 +62,6 @@ int			main(int argc, char **argv)
 	}
 	ft_world_print(&world);
 	ford_falkerson(&world);
-	algo_magic(&world);
 	ft_graphdel(&world);
 	return (0);
 }
