@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/15 22:39:29 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/15 23:47:27 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <limits.h>
 
 typedef struct			s_bandwidth
-{		
+{
 	int					turns;
 	t_list				*roads;
 }						t_bandwidth;
@@ -53,7 +53,7 @@ typedef struct			s_graph
 }						t_graph;
 
 typedef struct			s_way
-{		
+{
 	t_list				*direction;
 	size_t				len;
 	int					active_way;
