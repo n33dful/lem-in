@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/08 20:48:54 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/15 22:39:29 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include "../library/get_next_line/incl/get_next_line.h"
 # include <limits.h>
 
-typedef struct			s_calc
+typedef struct			s_bandwidth
 {		
 	int					turns;
 	t_list				*roads;
-}						t_calc;
+}						t_bandwidth;
 
 typedef struct			s_room
 {
@@ -52,35 +52,36 @@ typedef struct			s_graph
 	t_list				*rooms;
 }						t_graph;
 
-typedef struct			s_road
+typedef struct			s_way
 {		
-	t_list				*to;
-	int					len;
-	int					active_road;
-}						t_road;
+	t_list				*direction;
+	size_t				len;
+	int					active_way;
+}						t_way;
 
 typedef struct			s_ant
 {
-	int					index;
-	t_list				*road;
+	size_t				index;
+	t_list				*current_room;
 }						t_ant;
 
 /*
 ** --------------------- Functions For Parsing ---------------------------
 */
-int						parse_input(t_graph *world);
+
+t_list					*parse_input(t_graph *world);
 int						is_number(char *str);
 int						ft_atoi_status(char **str, int *result);
 int						get_ants(t_graph *world, char *line, int *step);
 int						get_next_room(t_graph *world, char **line, int *step);
 int						add_room(t_graph *world, int flag, char *line);
 int						get_edges(t_graph *world, char *line);
-void					ft_world_print(t_graph *world);
 void					ft_graphdel(t_graph *graph);
 
 /*
 ** --------------------- Functions For Route Search ---------------------
 */
+
 int						bfs_find_next_path(t_graph *world);
 void					change_flow(int diff, t_room *from, t_room *to);
 int						bfs_travers(t_graph *world);
@@ -88,13 +89,15 @@ t_room					*room_out(t_room *room);
 t_list					*delete_first_room(t_list **queue);
 int						nulify_flow(t_graph *world);
 int						nulify_parents_and_is_visited(t_graph *world);
-int						ford_falkerson(t_graph *world);
+t_list					*ford_falkerson(t_graph *world);
 void					ft_roomdel(void *content, size_t content_size);
 
 t_list					*ft_find_bandwidth(t_graph *world);
 
-t_calc					*ft_calc(t_graph *world);
+t_list					*ft_calc(t_graph *world);
 
-void					ft_push_ants(t_calc *calc, t_graph *world);
+int						ft_push_ants(t_bandwidth *bandwidth, t_graph *world);
+
+void					ft_lstdel_func(void *content, size_t content_size);
 
 #endif

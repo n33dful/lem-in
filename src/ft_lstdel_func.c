@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstdel_func.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/06 16:10:12 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/14 18:01:32 by cdarci           ###   ########.fr       */
+/*   Created: 2020/03/15 21:19:55 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/15 23:16:58 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstdel_func(void *content, size_t content_size)
 {
-	t_list	*point;
-
-	if (new)
+	if (content_size > 0)
 	{
-		point = (*alst);
-		if (!point)
-		{
-			(*alst) = new;
-			return ;
-		}
-		while (point->next)
-			point = point->next;
-		point->next = new;
+		if (content_size == sizeof(t_way))
+			ft_lstdel(&((t_way *)content)->direction, ft_lstdel_func);
+		if (content_size == sizeof(t_bandwidth))
+			ft_lstdel(&((t_bandwidth *)content)->roads, ft_lstdel_func);
+		ft_memdel(&content);
 	}
 }

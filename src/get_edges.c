@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   get_edges.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/04 22:01:21 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/15 22:38:55 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int			ft_check_format(const char *line)
-{
-	size_t	i;
-
-	i = 0;
-	if (!line)
-		return (0);
-	if (line[0] == 'L')
-		return (0);
-	if (ft_strchr(line, '-') != ft_strrchr(line, '-'))
-		return (0);
-	while (ft_isalnum(line[i]))
-		i++;
-	if (line[i] != '-')
-		return (0);
-	else
-		i++;
-	while (ft_isalnum(line[i]))
-		i++;
-	if (line[i] != '\0')
-		return (0);
-	return (1);
-}
+//static int			ft_check_format(const char *line)
+//{
+//	size_t	i;
+//
+//	i = 0;
+//	if (!line)
+//		return (0);
+//	if (line[0] == 'L')
+//		return (0);
+//	if (ft_strchr(line, '-') != ft_strrchr(line, '-'))
+//		return (0);
+//	while (ft_isalnum(line[i]))
+//		i++;
+//	if (line[i] != '-')
+//		return (0);
+//	else
+//		i++;
+//	while (ft_isalnum(line[i]))
+//		i++;
+//	if (line[i] != '\0')
+//		return (0);
+//	return (1);
+//}
 
 static int			ft_arrdel(char **arr)
 {
@@ -87,8 +87,7 @@ static int			ft_search_room(void *cont, t_list *lst)
 	return (0);
 }
 
-static t_list		*ft_lstfind(t_list *list,
-	void *what, int (*with)(void *, t_list *))
+static t_list		*ft_lstfind(t_list *list, void *what, int (*with)(void *, t_list *))
 {
 	while (list)
 	{
@@ -133,14 +132,22 @@ int					get_edges(t_graph *world, char *line)
 	char	**room_names;
 
 	rooms = world->rooms;
-	if (!ft_check_format(line))
-		return (0);
-	if (!(room_names = ft_strsplit(line, '-')))
-		return (0);
-	if (!ft_check_edge(room_names, rooms))
-		return (ft_arrdel(room_names));
-	if (!ft_add_edge(room_names, rooms))
-		return (ft_arrdel(room_names));
-	ft_arrdel(room_names);
-	return (1);
+	if (line)
+	{
+		if (ft_strequ(line, "##start") || ft_strequ(line, "##end"))
+			return (0);
+		if (line[0] == '#')
+			return (1);
+		//if (!ft_check_format(line))
+		//	return (0);
+		if (!(room_names = ft_strsplit(line, '-')))
+			return (0);
+		if (!ft_check_edge(room_names, rooms))
+			return (ft_arrdel(room_names));
+		if (!ft_add_edge(room_names, rooms))
+			return (ft_arrdel(room_names));
+		ft_arrdel(room_names);
+		return (1);
+	}
+	return (0);
 }

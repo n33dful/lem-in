@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:35:11 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/08 19:59:38 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/15 22:24:39 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,40 @@ int			nulify_parents_and_is_visited(t_graph *world)
 	return (0);
 }
 
-void		algo_magic(t_graph *world)
+static void		ft_road_del(void *content, size_t content_size)
 {
-	t_calc	*calc;
-
-	calc = ft_calc(world);
-	printf("ants will pass it for %d turn(s)\n", calc->turns);
-	ft_push_ants(calc, world);
-	//ft_lstdel(&calc->roads, ft_roomdel);
-	free(calc);
+	if (content_size > 0)
+		ft_memdel(&content);
 }
 
-int			ford_falkerson(t_graph *world)
+static void		ft_del_option(void *content, size_t content_size)
 {
-	int		i;
+	t_bandwidth	*calc;
 
-	i = 0;
+	if (content_size > 0)
+	{
+		calc = content;
+		ft_lstdel(&calc->roads, ft_road_del);
+		ft_memdel(&content);
+	}
+}
+
+t_list			*ford_falkerson(t_graph *world)
+{
+	t_list	*list_of_options;
+	t_list	*new;
+
+	list_of_options = NULL;
 	nulify_flow(world);
 	nulify_parents_and_is_visited(world);
-	printf("\n\nstarting iterations\n");
 	while (bfs_find_next_path(world) == 1)
 	{
-		i++;
-		algo_magic(world);
+		if (!(new = ft_calc(world)))
+		{
+			ft_lstdel(&list_of_options, ft_del_option);
+			return (NULL);
+		}
+		ft_lstadd_back(&list_of_options, new);
 	}
-	return (i);
+	return (list_of_options);
 }

@@ -6,40 +6,74 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 19:08:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/08 19:15:43 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/15 23:18:49 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	ft_roadlen(t_room *room, t_room *end_room)
+static int		ft_add_room_way(t_list **rooms_way, t_room *room)
 {
-	t_list	*edges;
-	t_edge	*edge;
-	int		len;
+	t_list	*new_elem;
 
-	if (room && end_room)
+	if (!(new_elem = ft_lstnew(NULL, 0)))
 	{
-		len = 0;
-		edges = room->edges;
-		if (ft_strequ(room->name, end_room->name))
-			return (0);
-		while (edges)
-		{
-			edge = edges->content;
-			if (edge->flow == 1)
-				return (len + ft_roadlen(edge->to, end_room) + 1);
-			edges = edges->next;
-		}
-		return (len);
+		ft_lstdel(rooms_way, ft_lstdel_func);
+		return (0);
 	}
-	return (-1);
+	new_elem->content = room;
+	ft_lstadd_back(rooms_way, new_elem);
+	return (1);
 }
 
-static int	ft_sortroads(t_list *current, t_list *next)
+static t_list	*ft_rooms_way(t_room *room, t_room *end_room)
 {
-	t_road	*first;
-	t_road	*second;
+	t_list	*rooms_way;
+	t_list	*edges;
+
+	rooms_way = NULL;
+	edges = room->edges;
+	while (edges)
+	{
+		if (ft_strequ(room->name, end_room->name) || \
+((t_edge *)edges->content)->flow == 1)
+		{
+			if (!(ft_add_room_way(&rooms_way, room)))
+				return (NULL);
+			if (ft_strequ(room->name, end_room->name))
+				break ;
+			room = ((t_edge *)edges->content)->to;
+			edges = room->edges;
+		}
+		else
+			edges = edges->next;
+	}
+	return (rooms_way);
+}
+
+static int		ft_add_way(t_list **list_of_bandwidth, \
+t_list *edges, t_graph *world)
+{
+	t_list	*new_elem;
+	t_way	way;
+
+	way.direction = ft_rooms_way(((t_edge *)edges->content)->to, \
+world->end_room->content);
+	way.len = ft_lstlen(way.direction);
+	way.active_way = 1;
+	if (!(new_elem = ft_lstnew(&way, sizeof(t_way))))
+	{
+		ft_lstdel(list_of_bandwidth, ft_lstdel_func);
+		return (0);
+	}
+	ft_lstadd_back(list_of_bandwidth, new_elem);
+	return (1);
+}
+
+static int		ft_sort_ways(t_list *current, t_list *next)
+{
+	t_way	*first;
+	t_way	*second;
 
 	first = current->content;
 	second = next->content;
@@ -48,68 +82,31 @@ static int	ft_sortroads(t_list *current, t_list *next)
 	return (0);
 }
 
-static t_list	*road_room(t_room *room, t_room *end_room)
-{
-	t_list	*newwwwwwww;
-	t_list	*new_elem;
-	t_list	*edges;
-	t_edge	*edge;
-
-	newwwwwwww = NULL;
-	if (room && end_room)
-	{
-		newwwwwwww = ft_lstnew(NULL, 0);
-		newwwwwwww->content = room;
-		edges = room->edges;
-		while (edges)
-		{
-			edge = edges->content;
-			if (ft_strequ(room->name, end_room->name))
-			{
-				new_elem = ft_lstnew(NULL, 0);
-				new_elem->content = room;
-				ft_lstadd_back(&newwwwwwww, new_elem);
-				break ;
-			}
-			else if (edge->flow == 1)
-			{
-				edges = edge->to->edges;
-				new_elem = ft_lstnew(NULL, 0);
-				new_elem->content = edge->to;
-				ft_lstadd_back(&newwwwwwww, new_elem);
-			}
-			edges = edges->next;
-		}
-	}
-	return (newwwwwwww);
-}
-
-t_list		*ft_find_bandwidth(t_graph *world)
+t_list			*ft_find_directions(t_graph *world)
 {
 	t_room	*start_room;
 	t_list	*edges;
-	t_edge	*edge;
-	t_road	road;
-	t_list	*options;
+	t_list	*list_of_bandwidth;
 
 	start_room = world->start_room->content;
 	edges = start_room->edges;
-	options = NULL;
+	list_of_bandwidth = NULL;
 	while (edges)
 	{
-		edge = edges->content;
-		if (edge->flow == 1)
+		if (((t_edge *)edges->content)->flow == 1)
 		{
-			road.to = road_room(edge->to, world->end_room->content);
-			road.len = ft_roadlen(edge->to, world->end_room->content) + 1;
-			road.active_road = 1;
-			ft_lstadd_back(&options, ft_lstnew(&road, sizeof(t_road)));
+			if (!ft_add_way(&list_of_bandwidth, edges, world))
+				return (NULL);
 		}
 		edges = edges->next;
 	}
-	ft_lstsort(&options, ft_sortroads);
-	return (options);
+	ft_lstsort(&list_of_bandwidth, ft_sort_ways);
+	return (list_of_bandwidth);
 }
+
+/*
+** To another file
+*/
 
 t_list		*ft_lstlast(t_list *lst)
 {
@@ -162,7 +159,7 @@ void		ft_lstdel_last(t_list **lst, void (*del)(void *, size_t))
 
 static int	ft_sumofprelastroads(t_list *options, int other)
 {
-	t_road	*road;
+	t_way	*road;
 	int		sum;
 
 	sum = 0;
@@ -177,20 +174,18 @@ static int	ft_sumofprelastroads(t_list *options, int other)
 	return (sum);
 }
 
-t_calc		*ft_calc(t_graph *world)
+t_list		*ft_calc(t_graph *world)
 {
-	t_calc	*calc;
-	t_road	*road;
+	t_bandwidth	calc;
+	t_way	*road;
 	t_list	*opts;
 	int		ants;
 	int		turns;
 
 	turns = 0;
 	ants = world->number_of_ants;
-	if (!(calc = (t_calc *)malloc(sizeof(t_calc))))
-		return (NULL);
-	calc->roads = ft_find_bandwidth(world);
-	opts = ft_lstmap(calc->roads, ft_lstnew_pointer);
+	calc.roads = ft_find_directions(world);
+	opts = ft_lstmap(calc.roads, ft_lstnew_pointer);
 	while (ants)
 	{
 		while (1)
@@ -206,7 +201,8 @@ t_calc		*ft_calc(t_graph *world)
 		turns++;
 		ants -= (int)ft_lstlen(opts);
 	}
+	ft_lstdel(&opts, ft_lstdel_func);
 	turns += road->len - 1;
-	calc->turns = turns;
-	return (calc);
+	calc.turns = turns;
+	return (ft_lstnew(&calc, sizeof(t_bandwidth)));
 }

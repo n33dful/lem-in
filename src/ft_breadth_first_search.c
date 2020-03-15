@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_breadth_first_search.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/06 20:54:31 by sroland          ###   ########.fr       */
+/*   Updated: 2020/03/14 18:28:03 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,6 @@ void				change_flow(int diff, t_room *from, t_room *to)
 		{
 			((t_edge *)tmp_edge->content)->flow =
 				((t_edge *)tmp_edge->content)->flow + diff;
-//			printf("flow from %10s to %10s = %5d\n", from->name, to->name,
-//				((t_edge *)tmp_edge->content)->flow);
 		}
 		tmp_edge = tmp_edge->next;
 	}
@@ -155,15 +153,11 @@ int					bfs_find_next_path(t_graph *world)
 	if (bfs_travers(world) == 0)
 	{
 		nulify_parents_and_is_visited(world);
-		printf("\n\nNo new path found:(((\n\n");
 		return (0);
 	}
 	tmp = (t_room *)world->end_room->content;
-	printf("\n\ngreat news!! Path found\n\n");
 	while (tmp->parent)
 	{
-		printf("room name: %20s; parent: %20s\n", tmp->name,
-			tmp->parent->name);
 		change_flow(-1, tmp, tmp->parent);
 		change_flow(1, tmp->parent, tmp);
 		tmp = tmp->parent;
