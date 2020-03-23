@@ -12,32 +12,36 @@
 
 NAME=lem-in
 CC=gcc
-CCFLAGS=-Wall -Wextra -Werror -g
+CCFLAGS=-Wall -Wextra -Werror
 DFLAGS=-MD
-FILES=lem_in.c\
-parse_content.c\
+FILES=main.c\
 get_number.c\
-get_edges.c\
+ft_add_ants.c\
+ft_add_edge.c\
+ft_add_room.c\
 ft_breadth_first_search.c\
-ft_ford_falkerson_algo.c\
+ft_find_possible_ways.c\
 ft_graphdel.c\
 ft_find_bandwidth.c\
-ft_push_ants.c\
-ft_lstdel_func.c
+ft_send_ants.c\
+ft_lstdel_func.c\
+ft_check_graph.c\
+ft_remove_long_ways.c\
+ft_read_line_format.c
 DIR_S=src
 DIR_O=tmp
 DIR_H=incl
-DIR_LIB=library
-DIR_H_LIB=library/incl
+DIR_LIB=lib
+DIR_H_LIB=lib/incl
 SOURCES=$(addprefix $(DIR_S)/, $(FILES))
 OBJECTS=$(addprefix $(DIR_O)/, $(FILES:.c=.o))
 DFILES=$(OBJECTS:.o=.d)
 
 all: $(NAME)
-	@make -C library > /dev/null
+	@make -C $(DIR_LIB) > /dev/null
 
 $(NAME): $(OBJECTS)
-	@make -C library > /dev/null
+	@make -C $(DIR_LIB) > /dev/null
 	@$(CC) $(OBJECTS) -L$(DIR_LIB) -lft -o $(NAME)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
@@ -47,11 +51,11 @@ $(DIR_O)/%.o: $(DIR_S)/%.c
 -include $(DFILES)
 
 clean:
-	@make clean -C library > /dev/null
+	@make clean -C $(DIR_LIB) > /dev/null
 	@rm -rf $(DIR_O)
 
 fclean: clean
-	@make fclean -C library > /dev/null
+	@make fclean -C $(DIR_LIB) > /dev/null
 	@rm -f $(NAME)
 
 re: fclean all

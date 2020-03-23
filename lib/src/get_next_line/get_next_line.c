@@ -40,6 +40,7 @@ static char	*read_line(const int fd, char *str)
 	char	buf[GNL_BUF_SIZE + 1];
 	int		ret;
 
+	ret = 0;
 	if (!str)
 		str = ft_strnew(0);
 	while (!ft_strchr(str, '\n') && (ret = read(fd, buf, GNL_BUF_SIZE)) > 0)
@@ -65,21 +66,20 @@ int			get_next_line(const int fd, char **line)
 	i = 0;
 	while (all[fd][i] != '\n' && all[fd][i] != '\0')
 		i++;
+	if ((*line))
+		ft_strdel(line);
 	*line = ft_strsub(all[fd], 0, i);
 	if (ft_strlen(all[fd]) == 0)
 	{
 		ft_strdel(&(all[fd]));
 		return (0);
 	}
-	else
+	else if (all[fd][i] == '\0')
 	{
-		if (all[fd][i] == '\0')
-		{
-			ft_strdel(&all[fd]);
-			all[fd] = ft_strnew(0);
-		}
-		else
-			all[fd] = ft_strsub_free(all[fd], i + 1, ft_strlen(all[fd] + i));
+		ft_strdel(&all[fd]);
+		all[fd] = ft_strnew(0);
 	}
+	else
+		all[fd] = ft_strsub_free(all[fd], i + 1, ft_strlen(all[fd] + i));
 	return (1);
 }

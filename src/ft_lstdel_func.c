@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel_func.c                                   :+:      :+:    :+:   */
+/*   ft_contentdel.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,32 @@
 
 #include "lem_in.h"
 
-void	ft_lstdel_func(void *content, size_t content_size)
+void	ft_contentdel(void *content, size_t content_size)
 {
 	if (content_size > 0)
+		ft_memdel(&content);
+}
+
+void	ft_waydel(void *content, size_t content_size)
+{
+	t_way	*way;
+
+	if (content_size > 0)
 	{
-		if (content_size == sizeof(t_way))
-			ft_lstdel(&((t_way *)content)->direction, ft_lstdel_func);
-		if (content_size == sizeof(t_bandwidth))
-			ft_lstdel(&((t_bandwidth *)content)->roads, ft_lstdel_func);
+		way = content;
+		ft_lstdel(&way->direction, ft_contentdel);
+		ft_memdel(&content);
+	}
+}
+
+void	ft_bandwidthdel(void *content, size_t content_size)
+{
+	t_bandwidth	*bandwidth;
+
+	if (content_size > 0)
+	{
+		bandwidth = content;
+		ft_lstdel(&bandwidth->roads, ft_waydel);
 		ft_memdel(&content);
 	}
 }

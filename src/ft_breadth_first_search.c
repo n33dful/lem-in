@@ -13,15 +13,13 @@
 #include "lem_in.h"
 #include <stdio.h>
 
-t_list				*delete_first_room(t_list **queue)
+void				delete_first_room(t_list **queue)
 {
 	t_list		*tmp;
 
 	tmp = *queue;
-	*queue = (*queue)->next;
-	tmp->next = NULL;
+	(*queue) = (*queue)->next;
 	free(tmp);
-	return (*queue);
 }
 
 t_room				*room_out(t_room *room)
@@ -54,7 +52,7 @@ int					room_inflow(t_room *room)
 	return (count);
 }
 
-static int			check_edges(t_list *edge, t_list *v_queue, t_graph *world)
+static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 {
 	t_list			*new;
 
@@ -64,24 +62,24 @@ static int			check_edges(t_list *edge, t_list *v_queue, t_graph *world)
 //		printf("%10s\n", ((t_room *)((t_edge *)(edge->content))->to)->name);
 		if (((t_edge *)(edge->content))->flow <= 0 &&
 			((t_edge *)(edge->content))->to->is_visited == 0 &&
-			(room_inflow((t_room *)(v_queue->content)) <= 1 ||
+			(room_inflow((t_room *)((*v_queue)->content)) <= 1 ||
 			((t_edge *)(edge->content))->flow == -1))
 		{
 //			printf("\tedge to: %s\n", ((t_edge *)(edge->content))->to->name);
 			((t_edge *)(edge->content))->to->is_visited = 1;
 			((t_edge *)(edge->content))->to->parent =
-				(t_room *)(v_queue->content);
+				(t_room *)((*v_queue)->content);
 			if (((t_edge *)(edge->content))->to ==
 				(t_room *)(world->end_room->content))
 			{
 //				printf("\tEND FOUND!!!!\n\n");
 				return (1);
 			}
-			new = malloc(sizeof(t_list));
+			new = (t_list *)malloc(sizeof(t_list));
 			new->content = (t_room *)(((t_edge *)(edge->content))->to);
-			new->content_size = sizeof(t_room *);
+			new->content_size = 0;
 			new->next = NULL;
-			ft_lstadd_back(&v_queue, new);
+			ft_lstadd_back(v_queue, new);
 		}
 		edge = edge->next;
 	}
@@ -113,19 +111,18 @@ int					bfs_travers(t_graph *world)
 
 	v_queue = malloc(sizeof(t_list));
 	v_queue->content = world->start_room->content;
-	v_queue->content_size = sizeof(t_room *);
+	v_queue->content_size = 0;
 	v_queue->next = NULL;
 	((t_room *)(world->start_room->content))->is_visited = 1;
 	while (v_queue)
 	{
 		edge = ((t_room *)(v_queue->content))->edges;
-		if (check_edges(edge, v_queue, world) == 1)
+		if (check_edges(edge, &v_queue, world) == 1)
 		{
-//			print_queue(v_queue);
+			ft_lstdel(&v_queue, ft_contentdel);
 			return (1);
 		}
-//		print_queue(v_queue);
-		v_queue = delete_first_room(&v_queue);
+		delete_first_room(&v_queue);
 	}
 	return (0);
 }

@@ -17,16 +17,16 @@
 ** ----------------------------- External Headers ------------------------------
 */
 
-# include <sys/types.h>
-# include <sys/stat.h>
+# include "libft.h"
 # include <fcntl.h>
-# include "../../libft/incl/libft.h"
+# include <sys/stat.h>
+# include <sys/types.h>
 
 /*
 ** ------------------------------ Buf Definition -------------------------------
 */
 
-# define GNL_BUF_SIZE 42
+# define	GNL_BUF_SIZE 42
 
 /*
 ** -----------------------------------------------------------------------------
@@ -34,6 +34,6 @@
 ** -----------------------------------------------------------------------------
 */
 
-int	get_next_line(const int fd, char **line);
+int			get_next_line(const int fd, char **line);
 
 #endif

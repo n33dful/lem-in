@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cdarci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 19:28:31 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/08 20:11:07 by cdarci           ###   ########.fr       */
+/*   Created: 2020/02/06 16:10:12 by cdarci            #+#    #+#             */
+/*   Updated: 2020/02/06 16:10:17 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*ptr;
+	t_list	*point;
 
-	if (alst && *alst && del)
+	point = (*alst);
+	if (!point)
 	{
-		del((*alst)->content, (*alst)->content_size);
-		ptr = (*alst)->next;
-		free((*alst));
-		*alst = ptr;
+		(*alst) = new;
+		return ;
 	}
+	while (point->next)
+		point = point->next;
+	point->next = new;
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_edges.c                                        :+:      :+:    :+:   */
+/*   ft_add_edge.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,43 +12,7 @@
 
 #include "lem_in.h"
 
-//static int			ft_check_format(const char *line)
-//{
-//	size_t	i;
-//
-//	i = 0;
-//	if (!line)
-//		return (0);
-//	if (line[0] == 'L')
-//		return (0);
-//	if (ft_strchr(line, '-') != ft_strrchr(line, '-'))
-//		return (0);
-//	while (ft_isalnum(line[i]))
-//		i++;
-//	if (line[i] != '-')
-//		return (0);
-//	else
-//		i++;
-//	while (ft_isalnum(line[i]))
-//		i++;
-//	if (line[i] != '\0')
-//		return (0);
-//	return (1);
-//}
-
-static int			ft_arrdel(char **arr)
-{
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-		ft_strdel(&(arr[i++]));
-	free(arr);
-	arr = NULL;
-	return (0);
-}
-
-static int			ft_check_edge(char **room_names, t_list *rooms)
+static int		ft_check_edge(char **room_names, t_list *rooms)
 {
 	t_list	*lst_of_edges;
 	t_room	*room;
@@ -75,7 +39,7 @@ static int			ft_check_edge(char **room_names, t_list *rooms)
 	return (1);
 }
 
-static int			ft_search_room(void *cont, t_list *lst)
+static int		ft_search_room(void *cont, t_list *lst)
 {
 	t_room	*room;
 	char	*name;
@@ -87,7 +51,7 @@ static int			ft_search_room(void *cont, t_list *lst)
 	return (0);
 }
 
-static t_list		*ft_lstfind(t_list *list, void *what, int (*with)(void *, t_list *))
+static t_list	*ft_lstfind(t_list *list, void *what, int (*with)(void *, t_list *))
 {
 	while (list)
 	{
@@ -98,7 +62,7 @@ static t_list		*ft_lstfind(t_list *list, void *what, int (*with)(void *, t_list 
 	return (NULL);
 }
 
-static int			ft_add_edge(char **room_names, t_list *rooms)
+static int		ft_add(char **room_names, t_list *rooms)
 {
 	t_list	*room_one;
 	t_list	*room_two;
@@ -126,28 +90,36 @@ static int			ft_add_edge(char **room_names, t_list *rooms)
 	return (1);
 }
 
-int					get_edges(t_graph *world, char *line)
+static int		ft_edge_exists(char **room_names)
+{
+	if (room_names)
+		return (1);
+	return (0);
+}
+
+int				ft_add_edge(t_graph *world, char *line)
 {
 	t_list	*rooms;
+	int		exit_code;
 	char	**room_names;
 
+	exit_code = 1;
+	room_names = NULL;
 	rooms = world->rooms;
 	if (line)
 	{
-		if (ft_strequ(line, "##start") || ft_strequ(line, "##end"))
-			return (0);
-		if (line[0] == '#')
-			return (1);
-		//if (!ft_check_format(line))
-		//	return (0);
-		if (!(room_names = ft_strsplit(line, '-')))
-			return (0);
-		if (!ft_check_edge(room_names, rooms))
-			return (ft_arrdel(room_names));
-		if (!ft_add_edge(room_names, rooms))
-			return (ft_arrdel(room_names));
-		ft_arrdel(room_names);
-		return (1);
+		if (ft_read_line_format(line) != edge_format)
+			exit_code = 0;
+		else if (!(room_names = ft_strsplit(line, '-')))
+			exit_code = 0;
+		else if (!ft_edge_exists(room_names))
+			exit_code = 0;
+		else if (!ft_check_edge(room_names, rooms))
+			exit_code = 0;
+		else if (!ft_add(room_names, rooms))
+			exit_code = 0;
+		ft_arrdel((void *)(&room_names));
+		return (exit_code);
 	}
 	return (0);
 }

@@ -17,10 +17,12 @@
 ** ----------------------------- External Headers ------------------------------
 */
 
+# include "get_next_line.h"
+# include "t_list.h"
+# include <limits.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "t_list.h"
 
 /*
 ** --------------------- Functions For Working With Memory ---------------------
@@ -33,6 +35,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memset(void *b, int c, size_t len);
+void	ft_arrdel(void ***array);
 void	ft_bzero(void *s, size_t n);
 void	ft_memdel(void **ap);
 
@@ -41,6 +44,7 @@ void	ft_memdel(void **ap);
 */
 
 char	**ft_strsplit(char const *s, char c);
+char	*ft_itoa(int n);
 char	*ft_strcat(char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strcpy(char *dst, const char *src);
@@ -77,7 +81,6 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 ** -------------------- Functions For Working With Numbers ---------------------
 */
 
-char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -85,6 +88,7 @@ int		ft_isascii(int c);
 int		ft_isblank(int c);
 int		ft_iscntrl(int c);
 int		ft_isdigit(int c);
+int		ft_isinteger(const char *str);
 int		ft_islower(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
@@ -99,10 +103,11 @@ void	ft_putnbr(int n);
 */
 
 size_t	ft_lstlen(t_list *list);
+t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list	*ft_lstnew(void const *content, size_t content_size);
-void	ft_lstadd_front(t_list **alst, t_list *new);
 void	ft_lstadd_back(t_list **alst, t_list *new);
+void	ft_lstadd_front(t_list **alst, t_list *new);
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem));
