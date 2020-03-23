@@ -12,18 +12,21 @@
 
 #include "lem_in.h"
 
-static int	ft_iscomment(const char *line, int *room_type, t_graph *world)
+static int	ft_iscomment(char *line, int step, int *room_type, t_graph *world)
 {
 	if (line[0] != '#')
 		return (0);
-	else if (ft_strequ("##start", line) && !world->start_room)
-		*room_type = start;
-	else if (ft_strequ("##start", line) && world->start_room)
-		return (0);
-	else if (ft_strequ("##end", line) && !world->end_room)
-		*room_type = end;
-	else if (ft_strequ("##end", line) && world->end_room)
-		return (0);
+	else if (!ft_strncmp(line, "##", 2))
+	{
+		if (ft_strequ("##start", line) && \
+!world->start_room && step == 1 && (*room_type) == ordinary_room)
+			*room_type = start_room;
+		else if (ft_strequ("##end", line) && \
+!world->end_room && step == 1 && (*room_type) == ordinary_room)
+			*room_type = end_room;
+		else
+			return (0);
+	}
 	return (1);
 }
 
@@ -36,13 +39,13 @@ static int	ft_read_graph(t_data *data)
 
 	step = 0;
 	line = &data->read_line;
-	room_type = middle;
+	room_type = ordinary_room;
 	while (get_next_line(0, line) == 1)
 	{
 		if (!(new = ft_lstnew((*line), ft_strlen((*line)) + 1)))
 			return (0);
-		ft_lstadd_back(&data->input_map, new);
-		if (ft_iscomment((*line), &room_type, &data->graph))
+		ft_lstadd_back(&data->entered_map, new);
+		if (ft_iscomment((*line), step, &room_type, &data->graph))
 			continue ;
 		if (step == 0 && ft_add_ants(&data->graph, (*line), &step))
 			continue ;
@@ -62,21 +65,21 @@ static void	ft_init_data(t_data *data)
 	data->better_bandwidth = NULL;
 	data->graph.end_room = NULL;
 	data->graph.start_room = NULL;
-	data->graph.number_of_ants = 0;
+	data->graph.total_ants = 0;
 	data->graph.rooms = NULL;
-	data->input_map = NULL;
-	data->list_of_options = NULL;
+	data->entered_map = NULL;
+	data->bandwidths_list = NULL;
 }
 
 static void	ft_del_data(t_data *data)
 {
 	ft_strdel(&data->read_line);
-	ft_lstdel(&data->list_of_options, ft_bandwidthdel);
-	ft_lstdel(&data->input_map, ft_contentdel);
+	ft_lstdel(&data->bandwidths_list, ft_bandwidthdel);
+	ft_lstdel(&data->entered_map, ft_contentdel);
 	data->better_bandwidth = NULL;
 	data->graph.start_room = NULL;
 	data->graph.end_room = NULL;
-	data->graph.number_of_ants = 0;
+	data->graph.total_ants = 0;
 	ft_lstdel(&data->graph.rooms, ft_roomdel);
 }
 
@@ -92,6 +95,8 @@ int			main(int argc, char **argv)
 	else if (!ft_check_graph(&data))
 		data.exit_code = 1;
 	else if (!ft_find_possible_ways(&data))
+		data.exit_code = 1;
+	else if (!ft_final_preparation(&data))
 		data.exit_code = 1;
 	else if (!ft_send_ants(&data))
 		data.exit_code = 1;

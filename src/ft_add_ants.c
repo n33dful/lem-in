@@ -3,13 +3,12 @@
 
 int	ft_add_ants(t_graph *world, char *line, int *step)
 {
-	if (is_number(line) == 0)
+	if (ft_isinteger(line) != 1)
 		return (0);
-	if (ft_atoi_status(&line, &(world->number_of_ants)) == 0)
+	if (!ft_isdigit(line[ft_strlen(line) - 1]))
 		return (0);
-	while (ft_isspace((int)(*line)) != 0)
-		line++;
-	if (*line != '\0')
+	world->total_ants = ft_atoi(line);
+	if (world->total_ants <= 0)
 		return (0);
 	*step = 1;
 	return (1);

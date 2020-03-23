@@ -1,122 +1,103 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_edge.c                                        :+:      :+:    :+:   */
+/*   ft_add_edge.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/15 22:38:55 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/23 22:38:55 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int		ft_check_edge(char **room_names, t_list *rooms)
+static t_room	*ft_find_room(char *room_name, t_list *rooms)
 {
-	t_list	*lst_of_edges;
 	t_room	*room;
-	t_edge	*edge;
-	char	*check;
 
-	while (rooms)
+	room = NULL;
+	if (room_name && rooms)
 	{
-		room = rooms->content;
-		if (room->name == room_names[0] || room->name == room_names[1])
+		while (rooms)
 		{
-			check = room_names[room->name == room_names[0] ? 1 : 0];
-			lst_of_edges = room->edges;
-			while (lst_of_edges)
-			{
-				edge = lst_of_edges->content;
-				if (ft_strequ(edge->to->name, check))
-					return (0);
-				lst_of_edges = lst_of_edges->next;
-			}
+			room = rooms->content;
+			if (ft_strequ(room_name, room->name))
+				break ;
+			rooms = rooms->next;
 		}
-		rooms = rooms->next;
 	}
-	return (1);
+	return (room);
 }
 
-static int		ft_search_room(void *cont, t_list *lst)
+static int		ft_add(char *from, char *to, t_list *rooms)
 {
-	t_room	*room;
-	char	*name;
-
-	name = cont;
-	room = lst->content;
-	if (ft_strequ(name, room->name))
-		return (1);
-	return (0);
-}
-
-static t_list	*ft_lstfind(t_list *list, void *what, int (*with)(void *, t_list *))
-{
-	while (list)
-	{
-		if (with(what, list))
-			return (list);
-		list = list->next;
-	}
-	return (NULL);
-}
-
-static int		ft_add(char **room_names, t_list *rooms)
-{
-	t_list	*room_one;
-	t_list	*room_two;
-	t_room	*room;
-	t_list	*new;
+	t_room	*room_to;
+	t_room	*room_from;
+	t_list	*new_elem;
 	t_edge	edge;
 
-	if (!(room_one = ft_lstfind(rooms, room_names[0], ft_search_room)))
+	if (!from || !to || !rooms)
 		return (0);
-	if (!(room_two = ft_lstfind(rooms, room_names[1], ft_search_room)))
+	if (!(room_from = ft_find_room(from, rooms)))
+		return (0);
+	if (!(room_to = ft_find_room(to, rooms)))
 		return (0);
 	edge.weight = 0;
 	edge.residual = 0;
 	edge.flow = 0;
-	edge.to = room_one->content;
-	if (!(new = ft_lstnew(&edge, sizeof(t_edge))))
+	edge.leads_to = room_to;
+	if (!(new_elem = ft_lstnew(&edge, sizeof(t_edge))))
 		return (0);
-	room = room_two->content;
-	ft_lstadd_back(&(room->edges), new);
-	edge.to = room_two->content;
-	if (!(new = ft_lstnew(&edge, sizeof(t_edge))))
-		return (0);
-	room = room_one->content;
-	ft_lstadd_back(&(room->edges), new);
+	ft_lstadd_back(&room_from->edges, new_elem);
 	return (1);
 }
 
-static int		ft_edge_exists(char **room_names)
+static int		ft_edge_exists(char	**room_names, t_list *rooms)
 {
-	if (room_names)
+	t_room	*room;
+	t_edge	*edge;
+	t_list	*edges_list;
+
+	if (!room_names || !room_names[0] || !room_names[1] || !rooms)
 		return (1);
+	while (rooms)
+	{
+		room = rooms->content;
+		if (ft_strequ(room->name, room_names[0]))
+		{
+			edges_list = room->edges;
+			while (edges_list)
+			{
+				edge = edges_list->content;
+				if (ft_strequ(edge->leads_to->name, room_names[1]))
+					return (1);
+				edges_list = edges_list->next;
+			}
+		}
+		rooms = rooms->next;
+	}
 	return (0);
 }
 
 int				ft_add_edge(t_graph *world, char *line)
 {
-	t_list	*rooms;
 	int		exit_code;
 	char	**room_names;
 
 	exit_code = 1;
 	room_names = NULL;
-	rooms = world->rooms;
 	if (line)
 	{
 		if (ft_read_line_format(line) != edge_format)
 			exit_code = 0;
 		else if (!(room_names = ft_strsplit(line, '-')))
 			exit_code = 0;
-		else if (!ft_edge_exists(room_names))
+		else if (ft_edge_exists(room_names, world->rooms))
 			exit_code = 0;
-		else if (!ft_check_edge(room_names, rooms))
+		else if (!ft_add(room_names[0], room_names[1], world->rooms))
 			exit_code = 0;
-		else if (!ft_add(room_names, rooms))
+		else if (!ft_add(room_names[1], room_names[0], world->rooms))
 			exit_code = 0;
 		ft_arrdel((void *)(&room_names));
 		return (exit_code);

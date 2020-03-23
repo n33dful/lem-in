@@ -13,15 +13,15 @@ typedef enum		e_read_line_type
 
 typedef enum		e_room_type
 {
-	middle,
-	start,
-	end
+	ordinary_room,
+	start_room,
+	end_room
 }					t_room_type;
 
 typedef struct		s_bandwidth
 {
-	int				turns;
-	t_list			*roads;
+	int				turns_required;
+	t_list			*directions;
 }					t_bandwidth;
 
 typedef struct		s_room
@@ -35,9 +35,9 @@ typedef struct		s_room
 	struct s_room	*parent;
 }					t_room;
 
-typedef struct		s_edges_struct
+typedef struct		s_edge
 {
-	t_room			*to;
+	t_room			*leads_to;
 	int				weight;
 	int				flow;
 	int				residual;
@@ -45,22 +45,22 @@ typedef struct		s_edges_struct
 
 typedef struct		s_graph
 {
-	int				number_of_ants;
+	int				total_ants;
 	t_list			*start_room;
 	t_list			*end_room;
 	t_list			*rooms;
 }					t_graph;
 
-typedef struct		s_way
+typedef struct		s_direction
 {
-	t_list			*direction;
+	t_list			*way;
 	size_t			len;
-	int				active_way;
-}					t_way;
+	int				active;
+}					t_direction;
 
 typedef struct		s_ant
 {
-	size_t			index;
+	size_t			number;
 	t_list			*current_room;
 }					t_ant;
 
@@ -68,10 +68,10 @@ typedef struct		s_data
 {
 	int				exit_code;
 	char			*read_line;
-	t_bandwidth		*better_bandwidth;
 	t_graph			graph;
-	t_list			*input_map;
-	t_list			*list_of_options;
+	t_list			*entered_map;
+	t_list			*bandwidths_list;
+	t_bandwidth		*better_bandwidth;
 }					t_data;
 
 #endif

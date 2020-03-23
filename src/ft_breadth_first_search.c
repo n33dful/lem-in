@@ -30,7 +30,7 @@ t_room				*room_out(t_room *room)
 	while (edge)
 	{
 		if (((t_edge *)edge->content)->flow == 1)
-			return (((t_edge *)edge->content)->to);
+			return (((t_edge *)edge->content)->leads_to);
 		edge = edge->next;
 	}
 	return (NULL);
@@ -59,24 +59,24 @@ static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 //	printf("\nvertex: %s\n", ((t_room *)(v_queue->content))->name);
 	while (edge)
 	{
-//		printf("%10s\n", ((t_room *)((t_edge *)(edge->content))->to)->name);
+//		printf("%10s\n", ((t_room *)((t_edge *)(edge->content))->leads_to)->name);
 		if (((t_edge *)(edge->content))->flow <= 0 &&
-			((t_edge *)(edge->content))->to->is_visited == 0 &&
+			((t_edge *)(edge->content))->leads_to->is_visited == 0 &&
 			(room_inflow((t_room *)((*v_queue)->content)) <= 1 ||
 			((t_edge *)(edge->content))->flow == -1))
 		{
-//			printf("\tedge to: %s\n", ((t_edge *)(edge->content))->to->name);
-			((t_edge *)(edge->content))->to->is_visited = 1;
-			((t_edge *)(edge->content))->to->parent =
+//			printf("\tedge leads_to: %s\n", ((t_edge *)(edge->content))->leads_to->name);
+			((t_edge *)(edge->content))->leads_to->is_visited = 1;
+			((t_edge *)(edge->content))->leads_to->parent =
 				(t_room *)((*v_queue)->content);
-			if (((t_edge *)(edge->content))->to ==
+			if (((t_edge *)(edge->content))->leads_to ==
 				(t_room *)(world->end_room->content))
 			{
 //				printf("\tEND FOUND!!!!\n\n");
 				return (1);
 			}
 			new = (t_list *)malloc(sizeof(t_list));
-			new->content = (t_room *)(((t_edge *)(edge->content))->to);
+			new->content = (t_room *)(((t_edge *)(edge->content))->leads_to);
 			new->content_size = 0;
 			new->next = NULL;
 			ft_lstadd_back(v_queue, new);
@@ -127,14 +127,14 @@ int					bfs_travers(t_graph *world)
 	return (0);
 }
 
-void				change_flow(int diff, t_room *from, t_room *to)
+void				change_flow(int diff, t_room *from, t_room *leads_to)
 {
 	t_list		*tmp_edge;
 
 	tmp_edge = from->edges;
 	while (tmp_edge)
 	{
-		if (((t_edge *)tmp_edge->content)->to == to)
+		if (((t_edge *)tmp_edge->content)->leads_to == leads_to)
 		{
 			((t_edge *)tmp_edge->content)->flow =
 				((t_edge *)tmp_edge->content)->flow + diff;

@@ -12,10 +12,10 @@
 
 NAME=libft.a
 CC=gcc
-CCFLAGS=-Wall -Wextra -Werror -g
+CCFLAGS=-Wall -Wextra -Werror
 DFLAGS=-MD
 DIR_S=src
-DIR_O=temp
+DIR_O=tmp
 DIR_H=incl
 DIR_INT=integer_funcs
 DIR_LST=list_funcs

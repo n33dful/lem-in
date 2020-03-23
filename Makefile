@@ -15,19 +15,19 @@ CC=gcc
 CCFLAGS=-Wall -Wextra -Werror
 DFLAGS=-MD
 FILES=main.c\
-get_number.c\
 ft_add_ants.c\
 ft_add_edge.c\
 ft_add_room.c\
 ft_breadth_first_search.c\
 ft_find_possible_ways.c\
-ft_graphdel.c\
 ft_find_bandwidth.c\
 ft_send_ants.c\
-ft_lstdel_func.c\
+ft_lstdel_funcs.c\
 ft_check_graph.c\
-ft_remove_long_ways.c\
-ft_read_line_format.c
+ft_keep_best_directions.c\
+ft_read_line_format.c\
+ft_final_preparation.c\
+ft_find_directions.c
 DIR_S=src
 DIR_O=tmp
 DIR_H=incl

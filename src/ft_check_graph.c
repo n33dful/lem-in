@@ -35,7 +35,7 @@ static int		ft_check_coordinates(t_list *rooms)
 
 int				ft_check_graph(t_data *data)
 {
-	if (data->graph.number_of_ants <= 0)
+	if (data->graph.total_ants <= 0)
 		return (0);
 	if (!data->graph.start_room || !data->graph.end_room)
 		return (0);

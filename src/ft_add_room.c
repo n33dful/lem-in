@@ -26,6 +26,7 @@ static t_list	*ft_create_room(char *name, int type, int x, int y)
 		room.x = x;
 		room.y = y;
 		room.edges = NULL;
+		room.parent = NULL;
 		room.is_visited = 0;
 		if (!(new_elem = ft_lstnew(&room, sizeof(t_room))))
 			ft_strdel(&room.name);
@@ -35,16 +36,16 @@ static t_list	*ft_create_room(char *name, int type, int x, int y)
 
 static int		ft_room_exists(t_graph *world, char *name)
 {
-	t_list	*rooms_list;
+	t_list	*rooms;
 	t_room	*room;
 
-	rooms_list = world->rooms;
-	while (rooms_list)
+	rooms = world->rooms;
+	while (rooms)
 	{
-		room = rooms_list->content;
+		room = rooms->content;
 		if (ft_strequ(room->name, name) == 1)
 			return (1);
-		rooms_list = rooms_list->next;
+		rooms = rooms->next;
 	}
 	return (0);
 }
@@ -60,13 +61,13 @@ static int		ft_add(t_graph *world, int room_type, char **room_info)
 	if (!(new_room = ft_create_room(room_info[0], room_type, x, y)))
 		return (0);
 	ft_lstadd_back(&world->rooms, new_room);
-	if (room_type == start && world->start_room)
+	if (room_type == start_room && world->start_room)
 		return (0);
-	if (room_type == end && world->end_room)
+	if (room_type == end_room && world->end_room)
 		return (0);
-	if (room_type == start)
+	if (room_type == start_room)
 		world->start_room = new_room;
-	if (room_type == end)
+	if (room_type == end_room)
 		world->end_room = new_room;
 	return (1);
 }
@@ -94,7 +95,7 @@ int				ft_add_room(t_graph *world, char *line, int *step, int *room_type)
 		else if (!ft_add(world, (*room_type), room_info))
 			exit_code = 0;
 		ft_arrdel((void *)(&room_info));
-		(*room_type) = middle;
+		(*room_type) = ordinary_room;
 		return (exit_code);
 	}
 	return (0);

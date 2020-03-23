@@ -20,12 +20,12 @@ void	ft_contentdel(void *content, size_t content_size)
 
 void	ft_waydel(void *content, size_t content_size)
 {
-	t_way	*way;
+	t_direction	*way;
 
 	if (content_size > 0)
 	{
 		way = content;
-		ft_lstdel(&way->direction, ft_contentdel);
+		ft_lstdel(&way->way, ft_contentdel);
 		ft_memdel(&content);
 	}
 }
@@ -37,7 +37,21 @@ void	ft_bandwidthdel(void *content, size_t content_size)
 	if (content_size > 0)
 	{
 		bandwidth = content;
-		ft_lstdel(&bandwidth->roads, ft_waydel);
+		ft_lstdel(&bandwidth->directions, ft_waydel);
+		ft_memdel(&content);
+	}
+}
+
+void	ft_roomdel(void *content, size_t content_size)
+{
+	t_room	*room;
+
+	if (content_size > 0)
+	{
+		room = content;
+		ft_strdel(&room->name);
+		ft_lstdel(&room->edges, ft_contentdel);
+		room->parent = NULL;
 		ft_memdel(&content);
 	}
 }

@@ -55,9 +55,9 @@ int	ft_find_possible_ways(t_data *data)
 	nulify_parents_and_is_visited(&data->graph);
 	while (bfs_find_next_path(&data->graph) == 1)
 	{
-		if (!(new = ft_calc(&data->graph)))
+		if (!(new = ft_find_bandwidth(&data->graph)))
 			return (0);
-		ft_lstadd_back(&data->list_of_options, new);
+		ft_lstadd_back(&data->bandwidths_list, new);
 	}
 	return (1);
 }
