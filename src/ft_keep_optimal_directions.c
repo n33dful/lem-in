@@ -29,7 +29,7 @@ t_list *current_direction, int ants_number)
 	while (directions)
 	{
 		direction = directions->content;
-		is_optimal -= direction->len;
+		is_optimal = is_optimal - direction->len + 1;
 		if (directions == current_direction)
 			break ;
 		directions = directions->next;

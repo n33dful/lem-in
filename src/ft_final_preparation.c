@@ -35,6 +35,8 @@ static void			ft_print_map_line(t_list *entered_map)
 	{
 		if ((str = entered_map->content))
 			ft_putendl(str);
+		if (!entered_map->next)
+			ft_putchar('\n');
 	}
 }
 
@@ -44,6 +46,5 @@ int					ft_final_preparation(t_data *data)
 ft_find_best_bandwidth(data->bandwidths_list)))
 		return (0);
 	ft_lstiter(data->entered_map, ft_print_map_line);
-	ft_putchar('\n');
 	return (1);
 }

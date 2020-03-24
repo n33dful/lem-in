@@ -62,26 +62,23 @@ static void	ft_remove_extinct_ants(t_list **ants)
 	(*ants) = head;
 }
 
-static void	ft_print_ants(t_list *ants)
+static void	ft_print_ant(t_list *ants)
 {
 	t_room	*room;
 	t_ant	*ant;
 
 	if (ants)
 	{
-		while (ants)
-		{
-			ant = ants->content;
-			room = ant->current_room->content;
-			ft_putchar('L');
-			ft_putnbr(ant->number);
-			ft_putstr("-");
-			ft_putstr(room->name);
-			if (ants->next)
-				ft_putchar(' ');
-			ants = ants->next;
-		}
-		ft_putchar('\n');
+		ant = ants->content;
+		room = ant->current_room->content;
+		ft_putchar('L');
+		ft_putnbr(ant->number);
+		ft_putstr("-");
+		ft_putstr(room->name);
+		if (ants->next)
+			ft_putchar(' ');
+		else
+			ft_putchar('\n');
 	}
 }
 
@@ -114,7 +111,7 @@ bandwidth->directions, &ants)))
 			ft_lstdel(&ants, ft_contentdel);
 			return (0);
 		}
-		ft_print_ants(ants);
+		ft_lstiter(ants, ft_print_ant);
 		ft_lstiter(ants, ft_move_ant);
 		ft_remove_extinct_ants(&ants);
 	}

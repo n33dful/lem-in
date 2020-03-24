@@ -12,7 +12,7 @@
 
 NAME=lem-in
 CC=gcc
-CCFLAGS=-Wall -Wextra -Werror -g
+CCFLAGS=-g
 DFLAGS=-MD
 FILES=main.c\
 ft_add_ants.c\
