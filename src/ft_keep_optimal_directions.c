@@ -1,41 +1,7 @@
 
 #include "lem_in.h"
 
-static int		ft_sumofprelastroads(t_list *options, int other)
-{
-	t_direction	*road;
-	int		sum;
-
-	sum = 0;
-	while (options)
-	{
-		road = options->content;
-		sum = sum + other - road->len + 1;
-		if (options->next && !((t_direction *)options->next->content)->active)
-			break ;
-		options = options->next;
-	}
-	return (sum);
-}
-
-static t_list	*ft_last_active_direction(t_list *directions)
-{
-	t_list	*prev_node;
-
-	prev_node = NULL;
-    if (!directions)
-		return (NULL);
-    while (directions)
-	{
-		if (!((t_direction *)directions->content)->active)
-			break ;
-        prev_node = directions;
-        directions = directions->next;
-    }
-	return (prev_node);
-}
-
-static int		ft_active_ways_count(t_list *directions)
+static int	ft_active_ways_count(t_list *directions)
 {
 	t_direction	*way;
 	int			count;
@@ -51,24 +17,42 @@ static int		ft_active_ways_count(t_list *directions)
 	return (count);
 }
 
-int				ft_keep_optimal_directions(t_list *directions, int total_ants)
+static int	ft_isoptimal(t_list *directions, \
+t_list *current_direction, int ants_number)
 {
-	t_direction	*road;
-	int			count;
+	t_direction	*direction;
+	int			sum;
 
-	count = 0;
-	if (directions)
+	if (directions == current_direction)
+		return (1);
+	sum = 0;
+	while (directions)
 	{
-		while (1)
-		{
-			if ((count = ft_active_ways_count(directions)) == 1)
-				break ;
-			road = ft_last_active_direction(directions)->content;
-			if (ft_sumofprelastroads(directions, road->len) < total_ants)
-				break ;
-			else
-				road->active = 0;
-		}
+		if (directions == current_direction)
+			break ;
+		direction = directions->content;
+		sum += ants_number - direction->len + 1;
+		directions = directions->next;
 	}
-	return (count);
+	if (sum < ants_number)
+		return (0);
+	return (1);
+}
+
+int			ft_keep_optimal_directions(t_list *directions, int ants_number)
+{
+	t_list		*first_direction;
+	t_direction	*direction;
+
+	first_direction = directions;
+	while (directions)
+	{
+		direction = directions->content;
+		if (!ft_isoptimal(first_direction, directions, ants_number))
+			direction->active = 0;
+		else
+			direction->active = 1;
+		directions = directions->next;
+	}
+	return (ft_active_ways_count(first_direction));
 }
