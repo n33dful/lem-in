@@ -21,20 +21,20 @@ static int	ft_isoptimal(t_list *directions, \
 t_list *current_direction, int ants_number)
 {
 	t_direction	*direction;
-	int			sum;
+	int			is_optimal;
 
 	if (directions == current_direction)
 		return (1);
-	sum = 0;
+	is_optimal = ants_number;
 	while (directions)
 	{
+		direction = directions->content;
+		is_optimal -= direction->len;
 		if (directions == current_direction)
 			break ;
-		direction = directions->content;
-		sum += ants_number - direction->len + 1;
 		directions = directions->next;
 	}
-	if (sum < ants_number)
+	if (is_optimal < 0)
 		return (0);
 	return (1);
 }

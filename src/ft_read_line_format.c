@@ -8,7 +8,7 @@ static int	ft_check_name(const char *name)
 	i = 0;
 	while(name[i])
 	{
-		if (name[i] < 33 || name[i] > 126)
+		if (name[i] < 33 || name[i] == '-' || name[i] > 126)
 			return (0);
 		i++;
 	}
@@ -64,10 +64,10 @@ int			ft_read_line_format(const char *read_line)
 {
 	if (!read_line || read_line[0] == 'L')
 		return (incorrect_format);
-	else if (ft_edge_format(read_line))
-		return (edge_format);
 	else if (ft_room_format(read_line))
 		return (room_format);
+	else if (ft_edge_format(read_line))
+		return (edge_format);
 	else
 		return (incorrect_format);
 }
