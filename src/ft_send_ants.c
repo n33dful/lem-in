@@ -21,15 +21,16 @@ static int	ft_send_new_ants(int *total_ants, t_list *directions, t_list **ants)
 
 	if (!(*total_ants))
 		return (1);
-	while (directions && \
-((t_direction *)directions->content)->active)
+	while (directions)
 	{
 		direction = directions->content;
+		if (!direction->active)
+			break ;
 		ant.number = ++ant_number;
 		ant.current_room = direction->way;
 		if (!(new_ant = ft_lstnew(&ant, sizeof(t_ant))))
 			return (0);
-		(*total_ants) = (*total_ants) - 1;
+		(*total_ants) -= 1;
 		ft_lstadd_back(ants, new_ant);
 		directions = directions->next;
 	}
@@ -84,13 +85,13 @@ static void	ft_print_ants(t_list *ants)
 	}
 }
 
-static void	ft_move_ants(t_list *elem)
+static void	ft_move_ant(t_list *ants)
 {
 	t_ant	*ant;
 
-	if (elem)
+	if (ants)
 	{
-		ant = elem->content;
+		ant = ants->content;
 		if (ant->current_room)
 			ant->current_room = ant->current_room->next;
 	}
@@ -105,7 +106,7 @@ int			ft_send_ants(t_data *data)
 	bandwidth = data->better_bandwidth;
 	while (ants || data->graph.total_ants)
 	{
-		ft_keep_best_directions(bandwidth->directions, \
+		ft_keep_optimal_directions(bandwidth->directions, \
 data->graph.total_ants);
 		if (!(ft_send_new_ants(&data->graph.total_ants, \
 bandwidth->directions, &ants)))
@@ -114,7 +115,7 @@ bandwidth->directions, &ants)))
 			return (0);
 		}
 		ft_print_ants(ants);
-		ft_lstiter(ants, ft_move_ants);
+		ft_lstiter(ants, ft_move_ant);
 		ft_remove_extinct_ants(&ants);
 	}
 	return (1);

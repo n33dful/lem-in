@@ -28,8 +28,7 @@ static t_list	*ft_find_way(t_room *room)
 	edges = room->edges;
 	while (edges)
 	{
-		if (room->type == end_room || \
-((t_edge *)edges->content)->flow == 1)
+		if (room->type == end_room || ((t_edge *)edges->content)->flow == 1)
 		{
 			if (!(ft_add_way_stop(&way, room)))
 				return (NULL);
@@ -38,7 +37,8 @@ static t_list	*ft_find_way(t_room *room)
 			room = ((t_edge *)edges->content)->leads_to;
 			edges = room->edges;
 		}
-		edges = edges->next;
+		else
+			edges = edges->next;
 	}
 	return (way);
 }

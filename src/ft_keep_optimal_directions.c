@@ -18,53 +18,53 @@ static int		ft_sumofprelastroads(t_list *options, int other)
 	return (sum);
 }
 
-static t_list	*ft_last_active_way(t_list *ways_list)
+static t_list	*ft_last_active_direction(t_list *directions)
 {
 	t_list	*prev_node;
 
 	prev_node = NULL;
-    if (!ways_list)
+    if (!directions)
 		return (NULL);
-    while (ways_list)
+    while (directions)
 	{
-		if (!((t_direction *)ways_list->content)->active)
+		if (!((t_direction *)directions->content)->active)
 			break ;
-        prev_node = ways_list;
-        ways_list = ways_list->next;
+        prev_node = directions;
+        directions = directions->next;
     }
 	return (prev_node);
 }
 
-static int	ft_active_ways_count(t_list *ways_list)
+static int		ft_active_ways_count(t_list *directions)
 {
 	t_direction	*way;
 	int			count;
 
 	count = 0;
-	while (ways_list)
+	while (directions)
 	{
-		way = ways_list->content;
+		way = directions->content;
 		if (way->active)
 			count++;
-		ways_list = ways_list->next;
+		directions = directions->next;
 	}
 	return (count);
 }
 
-int				ft_keep_best_directions(t_list *ways_list, int total_ants)
+int				ft_keep_optimal_directions(t_list *directions, int total_ants)
 {
 	t_direction	*road;
 	int			count;
 
 	count = 0;
-	if (ways_list)
+	if (directions)
 	{
 		while (1)
 		{
-			if ((count = ft_active_ways_count(ways_list)) == 1)
+			if ((count = ft_active_ways_count(directions)) == 1)
 				break ;
-			road = ft_last_active_way(ways_list)->content;
-			if (ft_sumofprelastroads(ways_list, road->len) < total_ants)
+			road = ft_last_active_direction(directions)->content;
+			if (ft_sumofprelastroads(directions, road->len) < total_ants)
 				break ;
 			else
 				road->active = 0;

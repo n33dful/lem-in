@@ -41,7 +41,7 @@ void	ft_roomdel(void *content, size_t content_size);
 t_list	*ft_find_directions(t_graph *world);
 t_list	*ft_find_bandwidth(t_graph *world);
 int		ft_send_ants(t_data *data);
-int		ft_keep_best_directions(t_list *ways_list, int total_ants);
+int		ft_keep_optimal_directions(t_list *ways_list, int total_ants);
 int		ft_read_line_format(const char *read_line);
 int		ft_final_preparation(t_data *data);
 

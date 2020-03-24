@@ -12,7 +12,7 @@
 
 NAME=lem-in
 CC=gcc
-CCFLAGS=-Wall -Wextra -Werror
+CCFLAGS=-Wall -Wextra -Werror -g
 DFLAGS=-MD
 FILES=main.c\
 ft_add_ants.c\
@@ -24,7 +24,7 @@ ft_find_bandwidth.c\
 ft_send_ants.c\
 ft_lstdel_funcs.c\
 ft_check_graph.c\
-ft_keep_best_directions.c\
+ft_keep_optimal_directions.c\
 ft_read_line_format.c\
 ft_final_preparation.c\
 ft_find_directions.c

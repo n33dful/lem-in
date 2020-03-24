@@ -35,10 +35,11 @@ t_list			*ft_find_bandwidth(t_graph *world)
 		return (NULL);
 	ants = world->total_ants;
 	turns_required = 0;
+	bandwidth.turns_required = 0;
 	bandwidth.directions = ft_find_directions(world);
 	while (ants)
 	{
-		ants -= ft_keep_best_directions(bandwidth.directions, ants);
+		ants -= ft_keep_optimal_directions(bandwidth.directions, ants);
 		turns_required++;
 	}
 	ft_lstiter(bandwidth.directions, ft_reset_active_directions);
