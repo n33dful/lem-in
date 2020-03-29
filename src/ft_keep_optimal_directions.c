@@ -25,18 +25,18 @@ t_list *current_direction, int ants_number)
 
 	if (directions == current_direction)
 		return (1);
-	is_optimal = ants_number;
+	is_optimal = 0;
 	while (directions)
 	{
 		direction = directions->content;
-		is_optimal = is_optimal - direction->len + 1;
+		is_optimal = is_optimal + ((t_direction *)current_direction->content)->len  - direction->len + 1;
+		directions = directions->next;
 		if (directions == current_direction)
 			break ;
-		directions = directions->next;
 	}
-	if (is_optimal < 0)
-		return (0);
-	return (1);
+	if (is_optimal < ants_number)
+		return (1);
+	return (0);
 }
 
 int			ft_keep_optimal_directions(t_list *directions, int ants_number)

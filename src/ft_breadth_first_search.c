@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_breadth_first_search.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/14 18:28:03 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/29 14:45:57 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int					room_inflow(t_room *room)
 	{
 		if (((t_edge *)edge->content)->flow == -1)
 			count++;
+		else if (((t_edge *)edge->content)->leads_to == room->parent &&
+			((t_edge *)edge->content)->flow == 1)
+			count--;
 		edge = edge->next;
 	}
 	return (count);
@@ -56,14 +59,15 @@ static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 {
 	t_list			*new;
 
-//	printf("\nvertex: %s\n", ((t_room *)(v_queue->content))->name);
+//	printf("\nvertex: %s\n", ((t_room *)((*v_queue)->content))->name);
 	while (edge)
 	{
 //		printf("%10s\n", ((t_room *)((t_edge *)(edge->content))->leads_to)->name);
-		if (((t_edge *)(edge->content))->flow <= 0 &&
-			((t_edge *)(edge->content))->leads_to->is_visited == 0 &&
-			(room_inflow((t_room *)((*v_queue)->content)) <= 1 ||
-			((t_edge *)(edge->content))->flow == -1))
+		if (((room_inflow((t_room *)((*v_queue)->content)) == 1 &&
+			((t_edge *)(edge->content))->flow == -1) ||
+			room_inflow((t_room *)((*v_queue)->content)) < 1) &&
+			((t_edge *)(edge->content))->flow <= 0 &&
+			((t_edge *)(edge->content))->leads_to->is_visited == 0)
 		{
 //			printf("\tedge leads_to: %s\n", ((t_edge *)(edge->content))->leads_to->name);
 			((t_edge *)(edge->content))->leads_to->is_visited = 1;
@@ -153,11 +157,15 @@ int					bfs_find_next_path(t_graph *world)
 		return (0);
 	}
 	tmp = (t_room *)world->end_room->content;
+//	printf("\n\n\npath found!!\n\n");
+//	printf("%s", tmp->name);
 	while (tmp->parent)
 	{
 		change_flow(-1, tmp, tmp->parent);
 		change_flow(1, tmp->parent, tmp);
 		tmp = tmp->parent;
+//		if (tmp)
+//			printf(" -> %s", tmp->name);
 	}
 	nulify_parents_and_is_visited(world);
 	return (1);

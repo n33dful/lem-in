@@ -53,6 +53,4 @@ void	ft_contentdel(void *content, size_t content_size);
 void	ft_waydel(void *content, size_t content_size);
 void	ft_bandwidthdel(void *content, size_t content_size);
 
-void		ft_print_directions(t_list *directions);
-
 #endif
