@@ -6,7 +6,7 @@
 /*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/29 14:45:57 by konstantinz      ###   ########.fr       */
+/*   Updated: 2020/03/29 21:46:44 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,3 +170,4 @@ int					bfs_find_next_path(t_graph *world)
 	nulify_parents_and_is_visited(world);
 	return (1);
 }
+
