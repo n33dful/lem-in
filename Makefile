@@ -12,7 +12,7 @@
 
 NAME=lem-in
 CC=gcc
-CCFLAGS=-g
+CCFLAGS=-Wall -Wextra -Werror
 DFLAGS=-MD
 FILES=main.c\
 ft_add_ants.c\
@@ -35,6 +35,7 @@ DIR_LIB=lib
 DIR_H_LIB=lib/incl
 SOURCES=$(addprefix $(DIR_S)/, $(FILES))
 OBJECTS=$(addprefix $(DIR_O)/, $(FILES:.c=.o))
+INCLUDES=-I$(DIR_H_LIB) -I$(DIR_H)
 DFILES=$(OBJECTS:.o=.d)
 
 all: $(NAME)
@@ -46,7 +47,7 @@ $(NAME): $(OBJECTS)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p $(DIR_O)
-	@$(CC) $(CCFLAGS) $(DFLAGS) -I$(DIR_H_LIB) -I$(DIR_H) -c $< -o $@
+	@$(CC) $(CCFLAGS) $(DFLAGS) $(INCLUDES)  -c $< -o $@
 
 -include $(DFILES)
 
