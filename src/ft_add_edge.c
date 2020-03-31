@@ -6,7 +6,7 @@
 /*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
-/*   Updated: 2020/03/23 22:38:55 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/03/31 18:58:49 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int		ft_add(char *from, char *to, t_list *rooms)
 	return (1);
 }
 
-static int		ft_edge_exists(char	**room_names, t_list *rooms)
+static int		ft_edge_exists(char **room_names, t_list *rooms)
 {
 	t_room	*room;
 	t_edge	*edge;
