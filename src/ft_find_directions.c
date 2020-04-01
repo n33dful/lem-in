@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_find_directions.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/01 16:10:02 by konstantinz       #+#    #+#             */
+/*   Updated: 2020/04/01 16:10:14 by konstantinz      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -81,7 +92,7 @@ t_list			*ft_find_directions(t_graph *world)
 	t_list	*directions;
 	t_list	*edges;
 
-	edges = ((t_room *)world->start_room->content)->edges;
+	edges = ((t_room *)world->start_room)->edges;
 	directions = NULL;
 	while (edges)
 	{

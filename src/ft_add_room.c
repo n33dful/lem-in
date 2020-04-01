@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_content.c                                    :+:      :+:    :+:   */
+/*   ft_add_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/15 22:58:36 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/04/01 16:08:07 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static int		ft_add(t_graph *world, int room_type, char **room_info)
 	return (1);
 }
 
-int				ft_add_room(t_graph *world, char *line, int *step, int *room_type)
+int				ft_add_room(t_graph *world, char *line,
+	int *step, int *room_type)
 {
 	int		exit_code;
 	char	**room_info;

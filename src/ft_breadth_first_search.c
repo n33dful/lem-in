@@ -6,7 +6,7 @@
 /*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/29 21:46:44 by konstantinz      ###   ########.fr       */
+/*   Updated: 2020/04/01 16:15:40 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,20 @@ static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 {
 	t_list			*new;
 
-//	printf("\nvertex: %s\n", ((t_room *)((*v_queue)->content))->name);
 	while (edge)
 	{
-//		printf("%10s\n", ((t_room *)((t_edge *)(edge->content))->leads_to)->name);
 		if (((room_inflow((t_room *)((*v_queue)->content)) == 1 &&
 			((t_edge *)(edge->content))->flow == -1) ||
 			room_inflow((t_room *)((*v_queue)->content)) < 1) &&
 			((t_edge *)(edge->content))->flow <= 0 &&
 			((t_edge *)(edge->content))->leads_to->is_visited == 0)
 		{
-//			printf("\tedge leads_to: %s\n", ((t_edge *)(edge->content))->leads_to->name);
 			((t_edge *)(edge->content))->leads_to->is_visited = 1;
 			((t_edge *)(edge->content))->leads_to->parent =
 				(t_room *)((*v_queue)->content);
 			if (((t_edge *)(edge->content))->leads_to ==
-				(t_room *)(world->end_room->content))
-			{
-//				printf("\tEND FOUND!!!!\n\n");
+				(t_room *)(world->end_room))
 				return (1);
-			}
 			new = (t_list *)malloc(sizeof(t_list));
 			new->content = (t_room *)(((t_edge *)(edge->content))->leads_to);
 			new->content_size = 0;
@@ -90,34 +84,16 @@ static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 	return (0);
 }
 
-void				print_queue(t_list *queue)
-{
-	int				i;
-
-	i = 0;
-	printf("\n\nqueue status>>>\n");
-	while (queue)
-	{
-		printf("room%3d  >>%8s  (parent %8s)\n", i,
-			((t_room *)(queue->content))->name,
-			(((t_room *)(queue->content))->parent == NULL ? "NULL" :
-			((t_room *)(queue->content))->parent->name));
-		queue = queue->next;
-		printf("moved >>\n");
-		i++;
-	}
-}
-
 int					bfs_travers(t_graph *world)
 {
 	t_list		*v_queue;
 	t_list		*edge;
 
 	v_queue = malloc(sizeof(t_list));
-	v_queue->content = world->start_room->content;
+	v_queue->content = world->start_room;
 	v_queue->content_size = 0;
 	v_queue->next = NULL;
-	((t_room *)(world->start_room->content))->is_visited = 1;
+	((t_room *)(world->start_room))->is_visited = 1;
 	while (v_queue)
 	{
 		edge = ((t_room *)(v_queue->content))->edges;
@@ -156,18 +132,13 @@ int					bfs_find_next_path(t_graph *world)
 		nulify_parents_and_is_visited(world);
 		return (0);
 	}
-	tmp = (t_room *)world->end_room->content;
-//	printf("\n\n\npath found!!\n\n");
-//	printf("%s", tmp->name);
+	tmp = (t_room *)world->end_room;
 	while (tmp->parent)
 	{
 		change_flow(-1, tmp, tmp->parent);
 		change_flow(1, tmp->parent, tmp);
 		tmp = tmp->parent;
-//		if (tmp)
-//			printf(" -> %s", tmp->name);
 	}
 	nulify_parents_and_is_visited(world);
 	return (1);
 }
-

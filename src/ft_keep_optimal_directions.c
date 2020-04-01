@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keep_optimal_directions.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 18:59:04 by student           #+#    #+#             */
-/*   Updated: 2020/03/31 18:59:07 by student          ###   ########.fr       */
+/*   Updated: 2020/04/01 16:09:41 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ t_list *current_direction, int ants_number)
 	while (directions)
 	{
 		direction = directions->content;
-		is_optimal = is_optimal + ((t_direction *)current_direction->content)->len  - direction->len + 1;
+		is_optimal = is_optimal +
+			((t_direction *)current_direction->content)->len -
+			direction->len + 1;
 		directions = directions->next;
 		if (directions == current_direction)
 			break ;
