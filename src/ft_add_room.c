@@ -6,7 +6,7 @@
 /*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/04/01 16:08:07 by konstantinz      ###   ########.fr       */
+/*   Updated: 2020/04/03 23:36:32 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ static int		ft_add(t_graph *world, int room_type, char **room_info)
 	if (room_type == end_room && world->end_room)
 		return (0);
 	if (room_type == start_room)
-		world->start_room = new_room;
+		world->start_room = (t_room *)new_room->content;
 	if (room_type == end_room)
-		world->end_room = new_room;
+		world->end_room = (t_room *)new_room->content;
 	return (1);
 }
 

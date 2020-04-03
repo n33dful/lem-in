@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+         #
+#    By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/01 16:14:55 by cdarci            #+#    #+#              #
-#    Updated: 2020/03/15 23:10:38 by cdarci           ###   ########.fr        #
+#    Updated: 2020/04/03 23:37:17 by konstantinz      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ ft_add_ants.c\
 ft_add_edge.c\
 ft_add_room.c\
 ft_breadth_first_search.c\
+ft_breadth_first_search_tools.c\
 ft_find_possible_ways.c\
 ft_find_bandwidth.c\
 ft_send_ants.c\

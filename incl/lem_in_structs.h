@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 18:50:29 by student           #+#    #+#             */
-/*   Updated: 2020/03/31 18:51:13 by student          ###   ########.fr       */
+/*   Updated: 2020/04/03 23:24:37 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct		s_edge
 typedef struct		s_graph
 {
 	int				total_ants;
-	t_list			*start_room;
-	t_list			*end_room;
+	t_room			*start_room;
+	t_room			*end_room;
 	t_list			*rooms;
 }					t_graph;
 

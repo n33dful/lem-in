@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
+/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:19:13 by sroland           #+#    #+#             */
-/*   Updated: 2020/03/15 23:47:27 by cdarci           ###   ########.fr       */
+/*   Updated: 2020/04/03 23:17:37 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int		bfs_find_next_path(t_graph *world);
 void	change_flow(int diff, t_room *from, t_room *leads_to);
 int		bfs_travers(t_graph *world);
 t_room	*room_out(t_room *room);
+void	delete_first_room(t_list **queue);
+t_room	*room_out(t_room *room);
+int		room_inflow(t_room *room);
 int		nulify_flow(t_graph *world);
 int		nulify_parents_and_is_visited(t_graph *world);
 int		ft_find_possible_ways(t_data *data);
