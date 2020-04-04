@@ -6,12 +6,11 @@
 /*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/04/03 23:22:53 by konstantinz      ###   ########.fr       */
+/*   Updated: 2020/04/04 03:00:36 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
 void				delete_first_room(t_list **queue)
 {

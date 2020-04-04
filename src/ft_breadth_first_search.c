@@ -6,12 +6,22 @@
 /*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/04/03 23:14:40 by konstantinz      ###   ########.fr       */
+/*   Updated: 2020/04/04 03:00:50 by konstantinz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
+
+static int			is_valid_edge(t_list *edge, t_list **v_queue)
+{
+	if (((room_inflow((t_room *)((*v_queue)->content)) == 1 &&
+		((t_edge *)(edge->content))->flow == -1) ||
+		room_inflow((t_room *)((*v_queue)->content)) < 1) &&
+		((t_edge *)(edge->content))->flow <= 0 &&
+		((t_edge *)(edge->content))->leads_to->is_visited == 0)
+		return (1);
+	return (0);
+}
 
 static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 {
@@ -19,11 +29,7 @@ static int			check_edges(t_list *edge, t_list **v_queue, t_graph *world)
 
 	while (edge)
 	{
-		if (((room_inflow((t_room *)((*v_queue)->content)) == 1 &&
-			((t_edge *)(edge->content))->flow == -1) ||
-			room_inflow((t_room *)((*v_queue)->content)) < 1) &&
-			((t_edge *)(edge->content))->flow <= 0 &&
-			((t_edge *)(edge->content))->leads_to->is_visited == 0)
+		if (is_valid_edge(edge, v_queue) == 1)
 		{
 			((t_edge *)(edge->content))->leads_to->is_visited = 1;
 			((t_edge *)(edge->content))->leads_to->parent =
