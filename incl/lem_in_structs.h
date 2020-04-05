@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/31 18:50:29 by student           #+#    #+#             */
-/*   Updated: 2020/04/03 23:24:37 by konstantinz      ###   ########.fr       */
+/*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/31 18:58:49 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_breadth_first_search_tools.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/04 17:59:46 by sroland           #+#    #+#             */
-/*   Updated: 2020/04/04 03:00:36 by konstantinz      ###   ########.fr       */
+/*   Created: 2020/03/01 17:51:41 by sroland           #+#    #+#             */
+/*   Updated: 2020/03/31 18:58:49 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

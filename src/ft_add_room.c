@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_add_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: sroland <sroland@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 16:47:33 by sroland           #+#    #+#             */
-/*   Updated: 2020/04/04 02:16:25 by konstantinz      ###   ########.fr       */
+/*   Created: 2020/03/01 17:51:41 by sroland           #+#    #+#             */
+/*   Updated: 2020/03/31 18:58:49 by sroland          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

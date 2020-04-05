@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_bandwidth.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 19:08:37 by cdarci            #+#    #+#             */
-/*   Updated: 2020/04/04 03:02:18 by konstantinz      ###   ########.fr       */
+/*   Updated: 2020/03/15 23:18:49 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_graph.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/01 15:56:55 by konstantinz       #+#    #+#             */
-/*   Updated: 2020/04/04 03:00:56 by konstantinz      ###   ########.fr       */
+/*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/31 18:58:49 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

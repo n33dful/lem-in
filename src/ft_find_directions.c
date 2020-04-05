@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_directions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/01 16:10:02 by konstantinz       #+#    #+#             */
-/*   Updated: 2020/04/01 16:10:14 by konstantinz      ###   ########.fr       */
+/*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/31 18:58:49 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

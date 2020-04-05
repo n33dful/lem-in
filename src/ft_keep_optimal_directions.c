@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keep_optimal_directions.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantinzakharov <konstantinzakharov@    +#+  +:+       +#+        */
+/*   By: cdarci <cdarci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/31 18:59:04 by student           #+#    #+#             */
-/*   Updated: 2020/04/01 16:09:41 by konstantinz      ###   ########.fr       */
+/*   Created: 2020/03/01 17:51:41 by cdarci            #+#    #+#             */
+/*   Updated: 2020/03/31 18:58:49 by cdarci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
