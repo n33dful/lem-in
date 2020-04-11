@@ -53,31 +53,32 @@ static int		ft_add(char *from, char *to, t_list *rooms)
 	return (1);
 }
 
-static int		ft_edge_exists(char **room_names, t_list *rooms)
+static int		ft_edge_exists(char *from, char *to, t_list *rooms)
 {
 	t_room	*room;
 	t_edge	*edge;
 	t_list	*edges_list;
 
-	if (!room_names || !room_names[0] || !room_names[1] || !rooms)
+	if (!rooms || !from || !to)
 		return (1);
 	while (rooms)
 	{
 		room = rooms->content;
-		if (ft_strequ(room->name, room_names[0]))
+		if (ft_strequ(room->name, from))
 		{
 			edges_list = room->edges;
 			while (edges_list)
 			{
 				edge = edges_list->content;
-				if (ft_strequ(edge->leads_to->name, room_names[1]))
+				if (ft_strequ(edge->leads_to->name, to))
 					return (1);
 				edges_list = edges_list->next;
 			}
+			return (0);
 		}
 		rooms = rooms->next;
 	}
-	return (0);
+	return (1);
 }
 
 int				ft_add_edge(t_graph *world, char *line)
@@ -93,7 +94,9 @@ int				ft_add_edge(t_graph *world, char *line)
 			exit_code = 0;
 		else if (!(room_names = ft_strsplit(line, '-')))
 			exit_code = 0;
-		else if (ft_edge_exists(room_names, world->rooms))
+		else if (ft_edge_exists(room_names[0], room_names[1], world->rooms))
+			exit_code = 0;
+		else if (ft_edge_exists(room_names[1], room_names[0], world->rooms))
 			exit_code = 0;
 		else if (!ft_add(room_names[0], room_names[1], world->rooms))
 			exit_code = 0;
